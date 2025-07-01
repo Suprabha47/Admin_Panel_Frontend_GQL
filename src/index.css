@@ -1,0 +1,85 @@
+body {
+  background-color: #eff2f4;
+  margin: 0;
+  padding: 0;
+}
+.btn-dark {
+  background-color: #131448;
+}
+/* .sidebar {
+  width: 22%;
+  height: 100vh;
+  background-color: #1e2a4a;
+  color: #fff;
+} */
+.custom_sticky_bar {
+  top: 3rem;
+  position: sticky;
+  width: 22%;
+  background-color: #1e2a4a;
+  color: #fff;
+  height: calc(100vh - 3rem);
+}
+
+.sidebar a {
+  color: #fff;
+  text-decoration: none;
+}
+.sidebar .nav-link:hover {
+  background-color: #2a3b5c;
+}
+.header {
+  width: 100%;
+  height: 60px;
+  background-color: #0b1120;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+.brand-logo {
+  color: #fff;
+  font-weight: bold;
+  font-size: 20px;
+}
+.icon-badge {
+  position: relative;
+}
+.icon-badge .badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+}
+.gap-4 {
+  gap: 10rem !important;
+}
+.form-control-sm {
+  background-color: #0b1120;
+  color: #fff;
+  border: none;
+}
+.form-control-sm::placeholder {
+  color: #fff;
+}
+.form-control-sm:focus {
+  background-color: #0b1120;
+  color: #fff;
+}
+.search {
+  background-image: url("./utils/search.png"); /* ✅ correct path */
+  background-position: 10px center;
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+
+  padding-left: 40px; /* give space for icon */
+  height: 40px;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+  color: white;
+  background-color: #0c0f1c; /* match dark navbar */
+}
+.sidebar {
+  background-color: #1e2753;
+}
