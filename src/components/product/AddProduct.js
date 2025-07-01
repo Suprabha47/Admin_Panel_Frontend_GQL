@@ -54,7 +54,7 @@ const AddProduct = () => {
       const formData = new FormData();
       formData.append("image", values.image);
       const uploadRes = await axios.post(
-        "https://ecommerce-backend-369e.onrender.com/productImages",
+        process.env.LOCAL_PRODUCT_IMAGES_FOLDER,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
