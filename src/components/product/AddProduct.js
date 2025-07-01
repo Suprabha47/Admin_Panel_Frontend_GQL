@@ -48,18 +48,18 @@ const AddProduct = () => {
   }, [id]);
 
   const handleSubmit = async (values) => {
-    let imageUrl = values.image;
+    const imageUrl = values.image;
 
-    if (values.image instanceof File) {
-      const formData = new FormData();
-      formData.append("image", values.image);
-      const uploadRes = await axios.post(
-        process.env.LOCAL_PRODUCT_IMAGES_FOLDER,
-        formData,
-        { headers: { "Content-Type": "multipart/form-data" } }
-      );
-      imageUrl = uploadRes.data.imageUrl;
-    }
+    // if (values.image instanceof File) {
+    //   const formData = new FormData();
+    //   formData.append("image", values.image);
+    //   const uploadRes = await axios.post(
+    //     process.env.REACT_APP_BACKEND_URL,
+    //     formData,
+    //     { headers: { "Content-Type": "multipart/form-data" } }
+    //   );
+    //   imageUrl = uploadRes.data.imageUrl;
+    // }
     console.log("editing id: ", id);
     const payload = { ...values, image: imageUrl };
 
