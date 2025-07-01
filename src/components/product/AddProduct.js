@@ -101,10 +101,7 @@ const AddProduct = () => {
         <h4>Products</h4>
         <button className="btn btn-primary px-4">Cancel</button>
       </div>
-      <Link
-        to="/dashboard/products"
-        className="text-blue text-decoration-none mx-3  "
-      >
+      <Link to="/products" className="text-blue text-decoration-none mx-3  ">
         Back
       </Link>
 
