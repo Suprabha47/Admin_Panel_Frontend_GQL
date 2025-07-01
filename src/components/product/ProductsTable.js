@@ -49,7 +49,9 @@ const ProductsTable = () => {
     console.log("product id: ", _id);
     const id = _id;
     axios
-      .delete("http://localhost:3001/products", { data: { id } })
+      .delete("https://ecommerce-backend-369e.onrender.com/products", {
+        data: { id },
+      })
       .then((res) => {
         console.log(res.data.message);
         fetchProducts();

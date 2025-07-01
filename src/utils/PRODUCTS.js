@@ -2,7 +2,7 @@ import axios from "axios";
 
 const PRODUCTS = () => {
   return axios
-    .get("http://localhost:3001/products")
+    .get("https://ecommerce-backend-369e.onrender.com/products")
     .then((res) => {
       console.log("product const: ", res.data);
       return res.data;

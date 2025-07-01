@@ -35,7 +35,9 @@ const AddProduct = () => {
   useEffect(() => {
     if (id) {
       axios
-        .post("http://localhost:3001/product-details", { id })
+        .post("https://ecommerce-backend-369e.onrender.com/product-details", {
+          id,
+        })
         .then((res) => {
           console.log("product details: ", res.data.data);
           setInitialData(res.data.data);
@@ -52,7 +54,7 @@ const AddProduct = () => {
       const formData = new FormData();
       formData.append("image", values.image);
       const uploadRes = await axios.post(
-        "http://localhost:3001/productImages",
+        "https://ecommerce-backend-369e.onrender.com/productImages",
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
@@ -63,7 +65,10 @@ const AddProduct = () => {
 
     if (!id) {
       axios
-        .post("http://localhost:3001/add-product", payload)
+        .post(
+          "https://ecommerce-backend-369e.onrender.com/add-product",
+          payload
+        )
         .then((res) => {
           toast.success("Product Added!");
         })
@@ -72,12 +77,15 @@ const AddProduct = () => {
         });
     } else {
       axios
-        .put("http://localhost:3001/edit-product", { _id: id, p: payload })
+        .put("https://ecommerce-backend-369e.onrender.com/edit-product", {
+          _id: id,
+          p: payload,
+        })
         .then((res) => {
           toast.success("Product Updated!\nNavigating to Products page.", {
             autoClose: 3000,
           });
-          setTimeout(() => navigate("/dashboard/products"), 3000);
+          setTimeout(() => navigate("/products"), 3000);
         })
         .catch((err) => {
           toast.error(err.response.data);

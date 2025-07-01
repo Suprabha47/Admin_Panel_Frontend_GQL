@@ -20,7 +20,10 @@ const SignIn = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3001/sign-in", { email, password })
+      .post("https://ecommerce-backend-369e.onrender.com/sign-in", {
+        email,
+        password,
+      })
       .then((response) => {
         if (response.status === 200) {
           const name = response.data;
