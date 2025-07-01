@@ -46,7 +46,6 @@ const ProductsTable = () => {
   };
   // to delete item from the list
   const handleDel = (_id) => {
-    console.log("product id: ", _id);
     const id = _id;
     axios
       .delete("https://ecommerce-backend-369e.onrender.com/products", {
