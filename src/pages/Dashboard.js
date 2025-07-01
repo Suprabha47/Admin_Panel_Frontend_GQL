@@ -11,7 +11,6 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (!status) {
-      alert("Please Login!");
       navigate("/sign-in");
     }
   }, [status]);
