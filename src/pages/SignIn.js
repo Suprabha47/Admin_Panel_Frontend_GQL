@@ -14,7 +14,7 @@ const SignIn = () => {
 
   useEffect(() => {
     console.log("sign-in: ", userState);
-    if (userState) navigate("/dashboard");
+    if (userState) navigate("/");
   }, [userState]);
 
   const handleSubmit = (e) => {
@@ -26,8 +26,7 @@ const SignIn = () => {
           const name = response.data;
           console.log("in response block");
           return (
-            dispatch(changeUserState({ name, status: true })) &&
-            navigate("/dashboard")
+            dispatch(changeUserState({ name, status: true })) && navigate("/")
           );
         }
       })

@@ -14,7 +14,7 @@ const SignUp = () => {
   const userState = useSelector((state) => state.user.status);
 
   useEffect(() => {
-    if (userState) navigate("/dashboard");
+    if (userState) navigate("/");
   }, [userState]);
 
   const handleSubmit = (e) => {
