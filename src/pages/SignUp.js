@@ -20,7 +20,7 @@ const SignUp = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("https://ecommerce-backend-369e.onrender.com/sign-up", {
+      .post(`${process.env.REACT_APP_BACKEND_URL}/sign-up`, {
         firstName,
         lastName,
         email,

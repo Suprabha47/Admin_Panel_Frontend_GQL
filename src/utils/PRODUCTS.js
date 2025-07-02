@@ -2,7 +2,7 @@ import axios from "axios";
 
 const PRODUCTS = () => {
   return axios
-    .get("https://ecommerce-backend-369e.onrender.com/products")
+    .get(`${process.env.REACT_APP_BACKEND_URL}/products`)
     .then((res) => {
       console.log("product const: ", res.data);
       return res.data;

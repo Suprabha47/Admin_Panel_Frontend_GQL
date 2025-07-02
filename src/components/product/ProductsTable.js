@@ -48,7 +48,7 @@ const ProductsTable = () => {
   const handleDel = (_id) => {
     const id = _id;
     axios
-      .delete("https://ecommerce-backend-369e.onrender.com/products", {
+      .delete(`${process.env.REACT_APP_BACKEND_URL}/products`, {
         data: { id },
       })
       .then((res) => {
@@ -105,8 +105,11 @@ const ProductsTable = () => {
                 <td>{index + 1}</td>
                 <td>
                   <div className="d-flex align-items-center ">
+                    {console.log(
+                      `${process.env.REACT_APP_BACKEND_URL}/images/${p.image}`
+                    )}
                     <img
-                      src={`${process.env.REACT_APP_BACKEND_URL}/p.image`}
+                      src={`${process.env.REACT_APP_BACKEND_URL}/images/${p.image}`}
                       alt={p.productName}
                       className="me-2 rounded"
                       style={{

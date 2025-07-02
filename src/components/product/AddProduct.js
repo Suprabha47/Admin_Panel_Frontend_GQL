@@ -1,4 +1,4 @@
-import { Formik, Form, useFormikContext } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import InformationSection from "./InformationSection";
 import CategorySection from "./CategorySection";
@@ -35,7 +35,7 @@ const AddProduct = () => {
   useEffect(() => {
     if (id) {
       axios
-        .post("https://ecommerce-backend-369e.onrender.com/product-details", {
+        .post(`${process.env.REACT_APP_BACKEND_URL}/product-details`, {
           id,
         })
         .then((res) => {
@@ -48,7 +48,7 @@ const AddProduct = () => {
   }, [id]);
 
   const handleSubmit = async (values) => {
-    const imageUrl = values.image;
+    const imageUrl = values.image.name;
 
     // if (values.image instanceof File) {
     //   const formData = new FormData();
@@ -60,15 +60,14 @@ const AddProduct = () => {
     //   );
     //   imageUrl = uploadRes.data.imageUrl;
     // }
-    console.log("editing id: ", id);
+    delete values["image"];
+
     const payload = { ...values, image: imageUrl };
+    console.log("payload url: ", payload);
 
     if (!id) {
       axios
-        .post(
-          "https://ecommerce-backend-369e.onrender.com/add-product",
-          payload
-        )
+        .post(`${process.env.REACT_APP_BACKEND_URL}/add-product`, payload)
         .then((res) => {
           toast.success("Product Added!");
         })
@@ -77,7 +76,7 @@ const AddProduct = () => {
         });
     } else {
       axios
-        .put("https://ecommerce-backend-369e.onrender.com/edit-product", {
+        .put(`${process.env.REACT_APP_BACKEND_URL}/edit-product`, {
           _id: id,
           p: payload,
         })
