@@ -58,7 +58,7 @@ const ProductsTable = () => {
       .catch((err) => console.log(err));
   };
 
-  if (allProducts.length === 0)
+  if (!allProducts || allProducts.length === 0)
     return (
       <>
         {" "}
@@ -107,7 +107,7 @@ const ProductsTable = () => {
                   <div className="d-flex align-items-center ">
                     {console.log(p.image)}
                     <img
-                      src={p.image}
+                      src={`${process.env.REACT_APP_BACKEND_URL}/productImages/${p.image}`}
                       alt={p.productName}
                       className="me-2 rounded"
                       style={{

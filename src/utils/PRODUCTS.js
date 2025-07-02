@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const PRODUCTS = () => {
+  console.log(`${process.env.REACT_APP_BACKEND_URL}/products`);
   return axios
     .get(`${process.env.REACT_APP_BACKEND_URL}/products`)
     .then((res) => {
