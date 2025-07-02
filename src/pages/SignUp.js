@@ -32,8 +32,8 @@ const SignUp = () => {
       })
       .catch((err) => {
         if (err.status === 409) {
-          toast.error(err.response.data);
-          navigate("/sign-in");
+          toast.error(err.response.data, { autoClose: 2000 });
+          setTimeout(() => navigate("/sign-in"), 3000);
         }
       });
   };

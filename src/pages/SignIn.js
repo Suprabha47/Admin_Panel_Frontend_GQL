@@ -37,7 +37,7 @@ const SignIn = () => {
       .catch((err) => {
         console.log("error block!");
         console.log(err);
-        toast.error("Invalid Credentials");
+        toast.error("Invalid Credentials", { autoClose: 3000 });
         setEmail("");
         setPassword("");
       });
