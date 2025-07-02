@@ -4,6 +4,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { changeUserState } from "../redux/userSlice";
+import { toast, ToastContainer } from "react-toastify";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -36,7 +37,7 @@ const SignIn = () => {
       .catch((err) => {
         console.log("error block!");
         console.log(err);
-        alert("Invalid Credentials");
+        toast.error("Invalid Credentials");
         setEmail("");
         setPassword("");
       });
@@ -111,6 +112,7 @@ const SignIn = () => {
 
         <SignUpInBtn />
       </form>
+      <ToastContainer />
     </div>
   );
 };

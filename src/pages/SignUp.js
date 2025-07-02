@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -31,7 +32,7 @@ const SignUp = () => {
       })
       .catch((err) => {
         if (err.status === 409) {
-          alert(err.response.data);
+          toast.error(err.response.data);
           navigate("/sign-in");
         }
       });
@@ -125,6 +126,7 @@ const SignUp = () => {
 
         <SignUpInBtn />
       </form>
+      <ToastContainer />
     </div>
   );
 };
