@@ -47,23 +47,27 @@ const AddProduct = () => {
     }
   }, [id]);
 
-  const handleSubmit = (values) => {
+  const handleSubmit = async (values) => {
     let imageName;
 
     if (values.image instanceof File) {
       const formData = new FormData();
       formData.append("image", values.image);
-      axios
-        .post(`${process.env.REACT_APP_BACKEND_URL}/productImages`, formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        })
-        .then((res) => {
-          console.log("image uploaded: ", res);
-          imageName = res.data.imageUrl.slpit("/").pop();
-        })
-        .catch((err) => console.log("Some error occured1 ", err));
+      try {
+        const image = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/productImages`,
+          formData,
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+          }
+        );
+        imageName = image.data.imageUrl.split("/").pop();
+        console.log(imageName);
+      } catch (err) {
+        console.log("error occured: ", err);
+      }
     }
-
+    console.log("image-name to be sent: ", imageName);
     delete values["image"];
 
     const payload = { ...values, image: imageName };
