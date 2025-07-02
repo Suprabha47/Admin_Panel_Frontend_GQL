@@ -25,7 +25,7 @@ const AddProduct = () => {
     productName: "",
     productDescription: "",
     price: "",
-    image: null,
+    image: "",
     discountPrice: "",
     seoTitle: "",
     seoDescription: "",
@@ -47,18 +47,19 @@ const AddProduct = () => {
     }
   }, [id]);
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = (values) => {
     let imageUrl = values.image.name;
 
     if (values.image instanceof File) {
       const formData = new FormData();
       formData.append("image", values.image);
-      const uploadRes = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/productImages`,
-        formData,
-        { headers: { "Content-Type": "multipart/form-data" } }
-      );
-      imageUrl = uploadRes.data.imageUrl;
+      axios
+        .post(`${process.env.REACT_APP_BACKEND_URL}/productImages`, formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        })
+        .then((res) => console.log("image uploaded: ", res))
+        .catch((err) => console.log("Some error? ", err));
+      //imageUrl = uploadRes.data.imageUrl;
     }
 
     delete values["image"];
