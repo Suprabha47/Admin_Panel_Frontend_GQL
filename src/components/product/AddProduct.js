@@ -68,7 +68,7 @@ const AddProduct = () => {
           throw err;
         });
     } else {
-      imageUrl = values.image.name;
+      imageUrl = values.image;
     }
     delete values["image"];
 

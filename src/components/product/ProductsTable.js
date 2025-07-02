@@ -105,11 +105,9 @@ const ProductsTable = () => {
                 <td>{index + 1}</td>
                 <td>
                   <div className="d-flex align-items-center ">
-                    {console.log(
-                      `${process.env.REACT_APP_BACKEND_URL}/productImages/${p.image}`
-                    )}
+                    {console.log(p.image)}
                     <img
-                      src={`${process.env.REACT_APP_BACKEND_URL}/productImages/${p.image}`}
+                      src={p.image}
                       alt={p.productName}
                       className="me-2 rounded"
                       style={{
