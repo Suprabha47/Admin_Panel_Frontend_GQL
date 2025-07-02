@@ -48,7 +48,7 @@ const AddProduct = () => {
   }, [id]);
 
   const handleSubmit = (values) => {
-    let imageUrl = values.image.name;
+    let imageName;
 
     if (values.image instanceof File) {
       const formData = new FormData();
@@ -57,14 +57,16 @@ const AddProduct = () => {
         .post(`${process.env.REACT_APP_BACKEND_URL}/productImages`, formData, {
           headers: { "Content-Type": "multipart/form-data" },
         })
-        .then((res) => console.log("image uploaded: ", res))
-        .catch((err) => console.log("Some error? ", err));
-      //imageUrl = uploadRes.data.imageUrl;
+        .then((res) => {
+          console.log("image uploaded: ", res);
+          imageName = res.data.imageUrl.slpit("/").pop();
+        })
+        .catch((err) => console.log("Some error occured1 ", err));
     }
 
     delete values["image"];
 
-    const payload = { ...values, image: imageUrl };
+    const payload = { ...values, image: imageName };
     console.log("payload url: ", payload);
 
     if (!id) {
