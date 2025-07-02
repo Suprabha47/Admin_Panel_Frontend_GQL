@@ -48,18 +48,28 @@ const AddProduct = () => {
   }, [id]);
 
   const handleSubmit = async (values) => {
-    const imageUrl = values.image.name;
+    let imageUrl = "";
 
-    // if (values.image instanceof File) {
-    //   const formData = new FormData();
-    //   formData.append("image", values.image);
-    //   const uploadRes = await axios.post(
-    //     process.env.REACT_APP_BACKEND_URL,
-    //     formData,
-    //     { headers: { "Content-Type": "multipart/form-data" } }
-    //   );
-    //   imageUrl = uploadRes.data.imageUrl;
-    // }
+    if (values.image && values.image instanceof File) {
+      const formData = new FormData();
+      formData.append("image", values.image);
+
+      await axios
+        .post(`${process.env.REACT_APP_BACKEND_URL}/productImages`, formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        })
+        .then((response) => {
+          imageUrl = response.data.filename;
+          console.log("hello");
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error("Image upload failed!");
+          throw err;
+        });
+    } else {
+      imageUrl = values.image.name;
+    }
     delete values["image"];
 
     const payload = { ...values, image: imageUrl };
