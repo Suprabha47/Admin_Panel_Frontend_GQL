@@ -1,9 +1,8 @@
 import axios from "axios";
 
 const PRODUCTS = () => {
-  console.log(`${process.env.REACT_APP_BACKEND_URL}/products`);
   return axios
-    .get(`${process.env.REACT_APP_BACKEND_URL}/products`)
+    .get(`${process.env.REACT_APP_BACKEND_URL}/api/products`)
     .then((res) => {
       console.log("product const: ", res.data);
       return res.data;

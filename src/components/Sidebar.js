@@ -5,7 +5,7 @@ const Sidebar = () => {
     <div class="sidebar d-flex flex-column p-3 sidebar text-white custom_sticky_bar">
       <ul class="nav nav-pills flex-column mb-4">
         <li>
-          <Link to="/" class="nav-link text-white">
+          <Link to="/dashboard" class="nav-link text-white ">
             Dashboard
           </Link>
         </li>

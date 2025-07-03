@@ -21,7 +21,7 @@ const SignIn = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`${process.env.REACT_APP_BACKEND_URL}/sign-in`, {
+      .post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/sign-in`, {
         email,
         password,
       })

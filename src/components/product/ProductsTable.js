@@ -46,11 +46,8 @@ const ProductsTable = () => {
   };
   // to delete item from the list
   const handleDel = (_id) => {
-    const id = _id;
     axios
-      .delete(`${process.env.REACT_APP_BACKEND_URL}/products`, {
-        data: { id },
-      })
+      .delete(`${process.env.REACT_APP_BACKEND_URL}/api/products/${_id}`, {})
       .then((res) => {
         console.log(res.data.message);
         fetchProducts();

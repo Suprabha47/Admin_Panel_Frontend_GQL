@@ -35,9 +35,7 @@ const AddProduct = () => {
   useEffect(() => {
     if (id) {
       axios
-        .post(`${process.env.REACT_APP_BACKEND_URL}/product-details`, {
-          id,
-        })
+        .get(`${process.env.REACT_APP_BACKEND_URL}/api/products/${id}`)
         .then((res) => {
           console.log("product details: ", res.data.data);
           setInitialData(res.data.data);
@@ -55,7 +53,7 @@ const AddProduct = () => {
       formData.append("image", values.image);
       try {
         const image = await axios.post(
-          `${process.env.REACT_APP_BACKEND_URL}/productImages`,
+          `${process.env.REACT_APP_BACKEND_URL}/api/upload/`,
           formData,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -75,7 +73,10 @@ const AddProduct = () => {
 
     if (!id) {
       axios
-        .post(`${process.env.REACT_APP_BACKEND_URL}/add-product`, payload)
+        .post(
+          `${process.env.REACT_APP_BACKEND_URL}/api/products/add-product`,
+          payload
+        )
         .then((res) => {
           toast.success("Product Added!");
         })
@@ -84,7 +85,7 @@ const AddProduct = () => {
         });
     } else {
       axios
-        .put(`${process.env.REACT_APP_BACKEND_URL}/edit-product`, {
+        .put(`${process.env.REACT_APP_BACKEND_URL}/api/products/edit-product`, {
           _id: id,
           p: payload,
         })
