@@ -15,7 +15,7 @@ const CategoryUpdateForm = ({ name, descr, id, handleTrigger }) => {
     e.preventDefault();
     axios
       .put(
-        `${process.env.REACT_APP_LOCAL_BACKEND_URL}/api/categories/update-category/${id}`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/categories/update-category/${id}`,
         { categoryName, categoryDescription }
       )
       .then(() => handleTrigger())

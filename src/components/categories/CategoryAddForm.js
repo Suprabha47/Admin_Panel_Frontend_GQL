@@ -10,14 +10,14 @@ const CategoryAddForm = ({ onTrigger }) => {
 
     axios
       .post(
-        `${process.env.REACT_APP_LOCAL_BACKEND_URL}/api/categories/add-category`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/categories/add-category`,
         { categoryName, categoryDescription }
       )
       .then((res) => onTrigger())
       .catch((err) => console.log("error occured: ", err));
     // axios
     // .put(
-    //   `${process.env.REACT_APP_LOCAL_BACKEND_URL}/api/categories/update-category/${id}`,
+    //   `${process.env.REACT_APP_BACKEND_URL}/api/categories/update-category/${id}`,
     //   { categoryName, categoryDescription }
     // )
     // .then((res) => onTrigger())

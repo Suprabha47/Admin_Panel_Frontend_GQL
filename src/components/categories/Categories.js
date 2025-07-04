@@ -20,7 +20,7 @@ const Categories = () => {
   };
   const handleDelete = (id) => {
     axios
-      .delete(`${process.env.REACT_APP_LOCAL_BACKEND_URL}/api/categories/${id}`)
+      .delete(`${process.env.REACT_APP_BACKEND_URL}/api/categories/${id}`)
       .then((res) => {
         console.log(res);
         setTrigger(!trigger);

@@ -6,7 +6,6 @@ import reportWebVitals from "./reportWebVitals";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import Dashboard from "./pages/Dashboard";
-import DummyFormik from "./practice/DummyFormik";
 import { store } from "./redux/store";
 import Orders from "./components/Orders";
 import Products from "./components/product/Products";
@@ -15,7 +14,6 @@ import Customers from "./components/Customers";
 import Reports from "./components/Reports";
 import Coupons from "./components/Coupons";
 import GlobalSettings from "./components/GlobalSettings";
-import SignForm from "./practice/SignForm";
 import AddProduct from "./components/product/AddProduct";
 import ProductsTable from "./components/product/ProductsTable";
 import DashboardOutlet from "./components/DashboardOutlet";
@@ -41,8 +39,6 @@ root.render(
           <Route path="coupons" element={<Coupons />} />
           <Route path="global-settings" element={<GlobalSettings />} />
         </Route>
-        <Route path="/formik" element={<DummyFormik />} />
-        <Route path="/form" element={<SignForm />} />
       </Routes>
     </BrowserRouter>
   </Provider>

@@ -55,10 +55,7 @@ const ProductsTable = () => {
   // to delete item from the list
   const handleDel = (_id) => {
     axios
-      .delete(
-        `${process.env.REACT_APP_LOCAL_BACKEND_URL}/api/products/${_id}`,
-        {}
-      )
+      .delete(`${process.env.REACT_APP_BACKEND_URL}/api/products/${_id}`, {})
       .then((res) => {
         console.log(res.data.message);
         fetchProducts();
@@ -115,7 +112,7 @@ const ProductsTable = () => {
                   <div className="d-flex align-items-center ">
                     {console.log(p.image)}
                     <img
-                      src={`${process.env.REACT_APP_LOCAL_BACKEND_URL}/productImages/${p.image}`}
+                      src={`${process.env.REACT_APP_BACKEND_URL}/productImages/${p.image}`}
                       alt={p.productName}
                       className="me-2 rounded"
                       style={{

@@ -37,7 +37,7 @@ const AddProduct = () => {
   useEffect(() => {
     if (id) {
       axios
-        .get(`${process.env.REACT_APP_LOCAL_BACKEND_URL}/api/products/${id}`)
+        .get(`${process.env.REACT_APP_BACKEND_URL}/api/products/${id}`)
         .then((res) => {
           console.log("product details: ", res.data.data);
           setInitialData(res.data.data);
@@ -55,7 +55,7 @@ const AddProduct = () => {
       formData.append("image", values.image);
       try {
         const image = await axios.post(
-          `${process.env.REACT_APP_LOCAL_BACKEND_URL}/api/upload/`,
+          `${process.env.REACT_APP_BACKEND_URL}/api/upload/`,
           formData,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -76,7 +76,7 @@ const AddProduct = () => {
     if (!id) {
       axios
         .post(
-          `${process.env.REACT_APP_LOCAL_BACKEND_URL}/api/products/add-product`,
+          `${process.env.REACT_APP_BACKEND_URL}/api/products/add-product`,
           payload
         )
         .then((res) => {
@@ -87,13 +87,10 @@ const AddProduct = () => {
         });
     } else {
       axios
-        .put(
-          `${process.env.REACT_APP_LOCAL_BACKEND_URL}/api/products/edit-product`,
-          {
-            _id: id,
-            p: payload,
-          }
-        )
+        .put(`${process.env.REACT_APP_BACKEND_URL}/api/products/edit-product`, {
+          _id: id,
+          p: payload,
+        })
         .then((res) => {
           toast.success("Product Updated!\nNavigating to Products page.", {
             autoClose: 3000,
