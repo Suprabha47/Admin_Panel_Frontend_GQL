@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import PRODUCTS from "../../utils/PRODUCTS";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import CATEGORIES from "../../utils/CATEGORIES";
 
 const TableHeader = () => (
   <div className="d-flex justify-content-between align-items-center m-3 ">
@@ -18,15 +19,22 @@ const TableHeader = () => (
 const ProductsTable = () => {
   const [products, setProducts] = useState([]);
   const [allProducts, setAllProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     fetchProducts();
+    fetchCategories();
   }, []);
 
   const fetchProducts = async () => {
     const res = await PRODUCTS();
     setProducts(res);
     setAllProducts(res);
+  };
+
+  const fetchCategories = async () => {
+    const list = await CATEGORIES();
+    setCategories(list);
   };
 
   // for searching product items
@@ -47,7 +55,10 @@ const ProductsTable = () => {
   // to delete item from the list
   const handleDel = (_id) => {
     axios
-      .delete(`${process.env.REACT_APP_BACKEND_URL}/api/products/${_id}`, {})
+      .delete(
+        `${process.env.REACT_APP_LOCAL_BACKEND_URL}/api/products/${_id}`,
+        {}
+      )
       .then((res) => {
         console.log(res.data.message);
         fetchProducts();
@@ -70,10 +81,10 @@ const ProductsTable = () => {
       <div className="container mt-4 shadow-md bg-light p-4 m-2 w-100">
         <div className="d-flex justify-content-between align-items-center mb-3">
           <select className="form-select" style={{ width: "150px" }}>
-            <option>Category 1</option>
-            <option>Category 2</option>
-            <option>Category 3</option>
-            <option>Category 4</option>
+            <option>Categories</option>
+            {categories.map((c) => (
+              <option key={c._id}>{c.categoryName}</option>
+            ))}
           </select>
 
           <input
@@ -104,7 +115,7 @@ const ProductsTable = () => {
                   <div className="d-flex align-items-center ">
                     {console.log(p.image)}
                     <img
-                      src={`${process.env.REACT_APP_BACKEND_URL}/productImages/${p.image}`}
+                      src={`${process.env.REACT_APP_LOCAL_BACKEND_URL}/productImages/${p.image}`}
                       alt={p.productName}
                       className="me-2 rounded"
                       style={{
@@ -120,7 +131,7 @@ const ProductsTable = () => {
                     </div>
                   </div>
                 </td>
-                <td>―</td>
+                <td>{p.category}</td>
                 <td>₹{p.price}</td>
                 <td>
                   <Link to={`update-product/${p._id}`} state={p}>

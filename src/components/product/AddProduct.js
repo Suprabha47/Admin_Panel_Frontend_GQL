@@ -9,12 +9,13 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const validationSchema = Yup.object({
-  productName: Yup.string().required("Required"),
-  productDescription: Yup.string().required("Required"),
-  price: Yup.number().required("Required"),
+  productName: Yup.string().required("Product name required."),
+  productDescription: Yup.string().required("Product description is required."),
+  price: Yup.number().required("Product price is required."),
   image: Yup.mixed().required("Image Required"),
-  discountPrice: Yup.number().required("Required"),
-  seoTitle: Yup.string().required("Required"),
+  category: Yup.string().required("Choose a category"),
+  discountPrice: Yup.number().required("Add discount price"),
+  seoTitle: Yup.string().required("Seo title required"),
   seoDescription: Yup.string().required("Required"),
 });
 
@@ -26,6 +27,7 @@ const AddProduct = () => {
     productDescription: "",
     price: "",
     image: "",
+    category: "",
     discountPrice: "",
     seoTitle: "",
     seoDescription: "",
@@ -35,7 +37,7 @@ const AddProduct = () => {
   useEffect(() => {
     if (id) {
       axios
-        .get(`${process.env.REACT_APP_BACKEND_URL}/api/products/${id}`)
+        .get(`${process.env.REACT_APP_LOCAL_BACKEND_URL}/api/products/${id}`)
         .then((res) => {
           console.log("product details: ", res.data.data);
           setInitialData(res.data.data);
@@ -53,7 +55,7 @@ const AddProduct = () => {
       formData.append("image", values.image);
       try {
         const image = await axios.post(
-          `${process.env.REACT_APP_BACKEND_URL}/api/upload/`,
+          `${process.env.REACT_APP_LOCAL_BACKEND_URL}/api/upload/`,
           formData,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -74,7 +76,7 @@ const AddProduct = () => {
     if (!id) {
       axios
         .post(
-          `${process.env.REACT_APP_BACKEND_URL}/api/products/add-product`,
+          `${process.env.REACT_APP_LOCAL_BACKEND_URL}/api/products/add-product`,
           payload
         )
         .then((res) => {
@@ -85,10 +87,13 @@ const AddProduct = () => {
         });
     } else {
       axios
-        .put(`${process.env.REACT_APP_BACKEND_URL}/api/products/edit-product`, {
-          _id: id,
-          p: payload,
-        })
+        .put(
+          `${process.env.REACT_APP_LOCAL_BACKEND_URL}/api/products/edit-product`,
+          {
+            _id: id,
+            p: payload,
+          }
+        )
         .then((res) => {
           toast.success("Product Updated!\nNavigating to Products page.", {
             autoClose: 3000,
@@ -105,6 +110,7 @@ const AddProduct = () => {
       productDescription: "",
       price: "",
       image: null,
+      category: "",
       discountPrice: "",
       seoTitle: "",
       seoDescription: "",

@@ -83,3 +83,23 @@ body {
 .sidebar {
   background-color: #1e2753;
 }
+.category {
+  display: flex;
+  justify-content: space-between;
+}
+.btn {
+  display: inline;
+}
+.description-box {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: all 0.3s ease;
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+.description-box.show {
+  max-height: 100px; /* Adjust as needed */
+  opacity: 1;
+}

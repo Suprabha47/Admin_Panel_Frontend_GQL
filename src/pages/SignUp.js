@@ -21,7 +21,7 @@ const SignUp = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/sign-up`, {
+      .post(`${process.env.REACT_APP_LOCAL_BACKEND_URL}/api/auth/sign-up`, {
         firstName,
         lastName,
         email,
