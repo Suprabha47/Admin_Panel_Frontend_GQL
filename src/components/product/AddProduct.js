@@ -1,5 +1,4 @@
 import { Formik, Form } from "formik";
-import * as Yup from "yup";
 import InformationSection from "./InformationSection";
 import CategorySection from "./CategorySection";
 import { toast, ToastContainer } from "react-toastify";
@@ -7,31 +6,15 @@ import SEOSection from "./SEOSection";
 import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { INITIALFORMVALUE, FORMIKSCHEMA } from "../../utils/INITIALFORMVALUE";
+import uploadImage from "../../utils/uploadImage";
 
-const validationSchema = Yup.object({
-  productName: Yup.string().required("Product name required."),
-  productDescription: Yup.string().required("Product description is required."),
-  price: Yup.number().required("Product price is required."),
-  image: Yup.mixed().required("Image Required"),
-  category: Yup.string().required("Choose a category"),
-  discountPrice: Yup.number().required("Add discount price"),
-  seoTitle: Yup.string().required("Seo title required"),
-  seoDescription: Yup.string().required("Required"),
-});
+const validationSchema = FORMIKSCHEMA();
 
 const AddProduct = () => {
   const navigate = useNavigate();
 
-  const [initialData, setInitialData] = useState({
-    productName: "",
-    productDescription: "",
-    price: "",
-    image: "",
-    category: "",
-    discountPrice: "",
-    seoTitle: "",
-    seoDescription: "",
-  });
+  const [initialData, setInitialData] = useState(INITIALFORMVALUE);
   const { id } = useParams();
 
   useEffect(() => {
@@ -39,9 +22,8 @@ const AddProduct = () => {
       axios
         .get(`${process.env.REACT_APP_BACKEND_URL}/api/products/${id}`)
         .then((res) => {
-          console.log("product details: ", res.data.data);
-          setInitialData(res.data.data);
-          console.log("initial data: ", initialData);
+          const data = res.data.data;
+          setInitialData(data);
         })
         .catch((err) => console.log("product detail error: ", err));
     }
@@ -49,109 +31,108 @@ const AddProduct = () => {
 
   const handleSubmit = async (values) => {
     let imageName;
-
-    if (values.image instanceof File) {
-      const formData = new FormData();
-      formData.append("image", values.image);
-      try {
-        const image = await axios.post(
-          `${process.env.REACT_APP_BACKEND_URL}/api/upload/`,
-          formData,
-          {
-            headers: { "Content-Type": "multipart/form-data" },
-          }
-        );
-        imageName = image.data.imageUrl.split("/").pop();
-        console.log(imageName);
-      } catch (err) {
-        console.log("error occured: ", err);
+    try {
+      if (values.image instanceof File) {
+        imageName = await uploadImage(values.image);
+        console.log("image name: ", imageName);
       }
-    }
-    console.log("image-name to be sent: ", imageName);
-    delete values["image"];
 
-    const payload = { ...values, image: imageName };
-    console.log("payload url: ", payload);
+      delete values["image"];
 
-    if (!id) {
-      axios
-        .post(
-          `${process.env.REACT_APP_BACKEND_URL}/api/products/add-product`,
-          payload
-        )
-        .then((res) => {
-          toast.success("Product Added!");
-        })
-        .catch((err) => {
-          toast.error(err.response.data);
-        });
-    } else {
-      axios
-        .put(`${process.env.REACT_APP_BACKEND_URL}/api/products/edit-product`, {
-          _id: id,
-          p: payload,
-        })
-        .then((res) => {
-          toast.success("Product Updated!\nNavigating to Products page.", {
-            autoClose: 3000,
+      const payload = { ...values, image: imageName };
+
+      if (!id) {
+        axios
+          .post(
+            `${process.env.REACT_APP_BACKEND_URL}/api/products/add-product`,
+            payload
+          )
+          .then((res) => {
+            toast.success("Product Added!");
+          })
+          .catch((err) => {
+            toast.error(err.response.data);
           });
-          setTimeout(() => navigate("/products"), 3000);
-        })
-        .catch((err) => {
-          toast.error(err.response.data);
-        });
-    }
+      } else {
+        axios
+          .put(
+            `${process.env.REACT_APP_BACKEND_URL}/api/products/edit-product`,
+            {
+              _id: id,
+              p: payload,
+            }
+          )
+          .then((res) => {
+            toast.success("Product Updated!\nNavigating to Products page.", {
+              autoClose: 3000,
+            });
+            setTimeout(() => navigate("/products"), 3000);
+          })
+          .catch((err) => {
+            toast.error(err.response.data);
+          });
+      }
 
-    setInitialData({
-      productName: "",
-      productDescription: "",
-      price: "",
-      image: null,
-      category: "",
-      discountPrice: "",
-      seoTitle: "",
-      seoDescription: "",
-    });
+      setInitialData(INITIALFORMVALUE);
+    } catch (err) {
+      console.log("some error occured: ", err);
+      toast.error(err.response?.data || "Something went wrong!");
+    }
+  };
+
+  const handleCancel = (resetForm) => {
+    resetForm({ values: INITIALFORMVALUE });
+    setInitialData(INITIALFORMVALUE);
   };
 
   return (
     <>
-      <div className="d-flex justify-content-between align-items-center m-3 ">
-        <h4>Products</h4>
-        <button className="btn btn-primary px-4">Cancel</button>
-      </div>
-      <Link to="/products" className="text-blue text-decoration-none mx-3  ">
-        Back
-      </Link>
-
       <Formik
         initialValues={initialData}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
         enableReinitialize
       >
-        {({ values }) => (
-          <Form className="container mt-4">
-            <div className="row">
-              <div className="col-md-8">
-                <InformationSection />
-              </div>
-
-              <div className="col-md-4">
-                <CategorySection />
-
-                <SEOSection />
-              </div>
-            </div>
-            <div className="text-end mb-3">
-              <button type="submit" className="btn btn-primary px-4">
-                Save
+        {({ values, resetForm }) => (
+          <>
+            <div className="d-flex justify-content-between align-items-center m-3 ">
+              <h4>Products</h4>
+              <button
+                className="btn btn-primary px-4"
+                onClick={() => {
+                  handleCancel(resetForm);
+                }}
+              >
+                Cancel
               </button>
             </div>
-          </Form>
+            <Link
+              to="/products"
+              className="text-blue text-decoration-none mx-3  "
+            >
+              Back
+            </Link>
+            <Form className="container mt-4">
+              <div className="row">
+                <div className="col-md-8">
+                  <InformationSection />
+                </div>
+
+                <div className="col-md-4">
+                  <CategorySection />
+
+                  <SEOSection />
+                </div>
+              </div>
+              <div className="text-end mb-3">
+                <button type="submit" className="btn btn-primary px-4">
+                  Save
+                </button>
+              </div>
+            </Form>
+          </>
         )}
       </Formik>
-      <ToastContainer />
     </>
   );
 };

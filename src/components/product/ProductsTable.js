@@ -3,12 +3,16 @@ import PRODUCTS from "../../utils/PRODUCTS";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import CATEGORIES from "../../utils/CATEGORIES";
+import { toast } from "react-toastify";
+import ProductRow from "./ProductRow";
 
 const TableHeader = () => (
   <div className="d-flex justify-content-between align-items-center m-3 ">
     <h4>Products</h4>
     <div>
-      <button className="btn btn-outline-primary me-2">Export</button>
+      <button className="btn btn-outline-primary me-2" disabled>
+        Export
+      </button>
       <Link to="add-product">
         <button className="btn btn-primary">+ Add Product</button>
       </Link>
@@ -20,11 +24,26 @@ const ProductsTable = () => {
   const [products, setProducts] = useState([]);
   const [allProducts, setAllProducts] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
     fetchProducts();
     fetchCategories();
   }, []);
+
+  // filtering products based on category
+  useEffect(() => {
+    const filterCategory = selectedCategory.toLowerCase().trim();
+
+    if (filterCategory === "") {
+      setProducts(allProducts);
+      return;
+    }
+    const filteredList = allProducts.filter((p) =>
+      p.category.toLowerCase().trim().includes(filterCategory)
+    );
+    setProducts(filteredList);
+  }, [selectedCategory, allProducts]);
 
   const fetchProducts = async () => {
     const res = await PRODUCTS();
@@ -39,15 +58,14 @@ const ProductsTable = () => {
 
   // for searching product items
   const handleChange = (e) => {
-    const searchItem = e.target.value;
-    console.log(searchItem);
+    const searchItem = e.target.value.toLowerCase().replace(/\s+/g, "");
 
-    if (searchItem === "") setProducts(allProducts);
+    if (searchItem === "") {
+      setProducts(allProducts);
+      return;
+    }
     const searchList = allProducts.filter((p) =>
-      p.productName
-        .toLowerCase()
-        .replace(/\s+/g, "")
-        .includes(searchItem.toLowerCase().replace(/\s+/g, ""))
+      p.productName.toLowerCase().replace(/\s+/g, "").includes(searchItem)
     );
 
     setProducts(searchList);
@@ -57,8 +75,12 @@ const ProductsTable = () => {
     axios
       .delete(`${process.env.REACT_APP_BACKEND_URL}/api/products/${_id}`, {})
       .then((res) => {
-        console.log(res.data.message);
-        fetchProducts();
+        const updated = allProducts.filter((p) => p._id !== _id);
+        toast.success(`Product ${res.data.result.productName} deleted!`, {
+          autoClose: 3000,
+        });
+        setAllProducts(updated);
+        setProducts(updated);
       })
       .catch((err) => console.log(err));
   };
@@ -69,7 +91,9 @@ const ProductsTable = () => {
         {" "}
         <TableHeader />
         <hr></hr>
-        <h5 className="m-3">No products to show!</h5>
+        <div class="d-flex justify-content-center">
+          <div class="spinner-border  text-primary" role="status"></div>
+        </div>
       </>
     );
   return (
@@ -77,10 +101,20 @@ const ProductsTable = () => {
       <TableHeader />
       <div className="container mt-4 shadow-md bg-light p-4 m-2 w-100">
         <div className="d-flex justify-content-between align-items-center mb-3">
-          <select className="form-select" style={{ width: "150px" }}>
-            <option>Categories</option>
+          <select
+            className="form-select"
+            style={{ width: "150px" }}
+            onChange={(e) => {
+              const sel = e.target.value;
+              setSelectedCategory(sel);
+            }}
+            value={selectedCategory}
+          >
+            <option value="">Categories</option>
             {categories.map((c) => (
-              <option key={c._id}>{c.categoryName}</option>
+              <option key={c._id} value={c.categoryName}>
+                {c.categoryName}
+              </option>
             ))}
           </select>
 
@@ -105,48 +139,18 @@ const ProductsTable = () => {
             </tr>
           </thead>
           <tbody>
-            {products.map((p, index) => (
-              <tr key={p._id}>
-                <td>{index + 1}</td>
-                <td>
-                  <div className="d-flex align-items-center ">
-                    {console.log(p.image)}
-                    <img
-                      src={`${process.env.REACT_APP_BACKEND_URL}/productImages/${p.image}`}
-                      alt={p.productName}
-                      className="me-2 rounded"
-                      style={{
-                        width: 40,
-                        maxHeight: 40,
-                        objectFit: "contain",
-                      }}
-                    />
-
-                    <div>
-                      <div>{p.productName}</div>
-                      <small className="text-muted"></small>
-                    </div>
-                  </div>
-                </td>
-                <td>{p.category}</td>
-                <td>₹{p.price}</td>
-                <td>
-                  <Link to={`update-product/${p._id}`} state={p}>
-                    <button className="btn btn-outline-secondary me-2">
-                      <i className="bi bi-pencil-square"></i>
-                    </button>
-                  </Link>
-                </td>
-                <td>
-                  <button className="btn btn-outline-danger">
-                    <i
-                      className="bi bi-trash"
-                      onClick={() => handleDel(p._id)}
-                    ></i>
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {products.length === 0 ? (
+              <h4>No Products to Show.</h4>
+            ) : (
+              products.map((p, index) => (
+                <ProductRow
+                  key={p._id}
+                  index={index}
+                  p={p}
+                  handleDel={handleDel}
+                />
+              ))
+            )}
           </tbody>
         </table>
       </div>

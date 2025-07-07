@@ -4,7 +4,7 @@ const PRODUCTS = () => {
   return axios
     .get(`${process.env.REACT_APP_BACKEND_URL}/api/products`)
     .then((res) => {
-      console.log("product const: ", res.data);
+      //console.log("product const: ", res.data);
       return res.data;
     })
     .catch((err) => {
