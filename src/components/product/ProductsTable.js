@@ -103,7 +103,7 @@ const ProductsTable = () => {
         <div className="d-flex justify-content-between align-items-center mb-3">
           <select
             className="form-select"
-            style={{ width: "150px" }}
+            style={{ width: "200px" }}
             onChange={(e) => {
               const sel = e.target.value;
               setSelectedCategory(sel);
@@ -127,32 +127,32 @@ const ProductsTable = () => {
           />
         </div>
 
-        <table className="table table-hover align-middle">
-          <thead>
-            <tr>
-              <th>S. no.</th>
-              <th>Product</th>
-              <th>Category</th>
-              <th>Price</th>
-              <th>Edit</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.length === 0 ? (
-              <h4>No Products to Show.</h4>
-            ) : (
-              products.map((p, index) => (
+        {products.length === 0 ? (
+          <h5 className="my-5">No Products to Show.</h5>
+        ) : (
+          <table className="table table-hover align-middle">
+            <thead>
+              <tr>
+                <th>S. no.</th>
+                <th>Product</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Edit</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              {products.map((p, index) => (
                 <ProductRow
                   key={p._id}
                   index={index}
                   p={p}
                   handleDel={handleDel}
                 />
-              ))
-            )}
-          </tbody>
-        </table>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
     </>
   );

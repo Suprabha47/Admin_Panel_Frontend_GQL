@@ -4,7 +4,13 @@ import CategorySection from "./CategorySection";
 import { toast, ToastContainer } from "react-toastify";
 import SEOSection from "./SEOSection";
 import axios from "axios";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import {
+  data,
+  Link,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import { useEffect, useState } from "react";
 import { INITIALFORMVALUE, FORMIKSCHEMA } from "../../utils/INITIALFORMVALUE";
 import uploadImage from "../../utils/uploadImage";
@@ -16,9 +22,12 @@ const AddProduct = () => {
 
   const [initialData, setInitialData] = useState(INITIALFORMVALUE);
   const { id } = useParams();
+  const location = useLocation();
 
   useEffect(() => {
-    if (id) {
+    if (location.state) {
+      setInitialData(data);
+    } else if (id) {
       axios
         .get(`${process.env.REACT_APP_BACKEND_URL}/api/products/${id}`)
         .then((res) => {
@@ -27,7 +36,7 @@ const AddProduct = () => {
         })
         .catch((err) => console.log("product detail error: ", err));
     }
-  }, [id]);
+  }, [id, location.state]);
 
   const handleSubmit = async (values) => {
     let imageName;
