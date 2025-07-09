@@ -32,7 +32,7 @@ const Categories = () => {
     console.log("trigggered");
   };
 
-  if (categories.length === 0) return <>Loading</>;
+  //if (categories.length === 0) return <>Loading</>;
   return (
     <div className="w-100">
       <div className="d-flex justify-content-between align-items-center m-3 ">
@@ -48,17 +48,26 @@ const Categories = () => {
         </div>
         <CategoryAddForm onTrigger={handleTrigger} mode="add" />
       </div>
-      {categories.map((c) => (
-        <div key={c._id}>
+      {categories.length === 0 ? (
+        <>
+          {" "}
+          <hr></hr>
+          <div class="d-flex justify-content-center">
+            <div class="spinner-border  text-primary" role="status"></div>
+          </div>
+        </>
+      ) : (
+        categories.map((c) => (
           <CategoryCard
+            key={c._id}
             category={c.categoryName}
             descr={c.categoryDescription}
             id={c._id}
             onDelete={handleDelete}
             onTrigger={handleTrigger}
           />
-        </div>
-      ))}
+        ))
+      )}
     </div>
   );
 };
