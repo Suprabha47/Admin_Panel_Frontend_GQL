@@ -103,3 +103,12 @@ body {
   max-height: 100px; /* Adjust as needed */
   opacity: 1;
 }
+/* Add to your global CSS or a scoped CSS module */
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1) !important;
+  cursor: pointer;
+}
+.sidebar-link.active {
+  background-color: lightblue; /* Example: change background color */
+}
