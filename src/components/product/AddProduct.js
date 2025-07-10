@@ -1,7 +1,7 @@
 import { Formik, Form } from "formik";
 import InformationSection from "./InformationSection";
 import CategorySection from "./CategorySection";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import SEOSection from "./SEOSection";
 import axios from "axios";
 import {
@@ -26,7 +26,7 @@ const AddProduct = () => {
 
   useEffect(() => {
     if (location.state) {
-      setInitialData(data);
+      setInitialData(location.state);
     } else if (id) {
       axios
         .get(`${process.env.REACT_APP_BACKEND_URL}/api/products/${id}`)
