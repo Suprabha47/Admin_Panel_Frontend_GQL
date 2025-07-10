@@ -15,7 +15,7 @@ const SignUp = () => {
   const userState = useSelector((state) => state.user.status);
 
   useEffect(() => {
-    if (userState) navigate("/");
+    if (userState) setTimeout(() => navigate("/"), 500);
   }, [userState]);
 
   const handleSubmit = (e) => {

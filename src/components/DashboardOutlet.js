@@ -92,7 +92,7 @@ const DashboardOutlet = () => {
       {/* Header */}
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2 className="fw-bold mb-0">Dashboard</h2>
-        <button className="btn btn-outline-primary btn-sm">
+        <button className="btn btn-outline-primary btn-sm" disabled>
           <i className="bi bi-gear"></i> Manage
         </button>
       </div>

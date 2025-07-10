@@ -15,7 +15,7 @@ const SignIn = () => {
 
   useEffect(() => {
     console.log("sign-in: ", userState);
-    if (userState) navigate("/");
+    if (userState) setTimeout(() => navigate("/"), 500);
   }, [userState]);
 
   const handleSubmit = (e) => {
