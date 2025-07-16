@@ -1,25 +1,39 @@
+import { useMutation } from "@apollo/client";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { UPDATE_CATEGORY } from "../../apollo/categories/categoryMutations";
+import { toast } from "react-toastify";
 
 const CategoryUpdateForm = ({ name, descr, id, handleTrigger }) => {
   const [categoryName, setCategoryName] = useState("");
   const [categoryDescription, setCategoryDescription] = useState("");
-  console.log("description: ", descr);
-  console.log("categoryDescription: ", categoryDescription);
+  const [updateCategory] = useMutation(UPDATE_CATEGORY);
+
   useEffect(() => {
     setCategoryName(name);
     setCategoryDescription(descr);
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios
-      .put(
-        `${process.env.REACT_APP_BACKEND_URL}/api/categories/update-category/${id}`,
-        { categoryName, categoryDescription }
-      )
-      .then(() => handleTrigger())
-      .catch((err) => console.log("error occured: ", err));
+    try {
+      const { data } = await updateCategory({
+        variables: {
+          id,
+          categoryName,
+          categoryDescription,
+        },
+      });
+      toast.success("Category Updated!", {
+        autoClose: 3000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+
+      handleTrigger();
+    } catch (err) {
+      console.log("error: ", err);
+    }
   };
 
   return (

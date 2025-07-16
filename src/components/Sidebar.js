@@ -48,14 +48,14 @@ const Sidebar = () => {
           onClick={() => setActive("customers")}
         >
           <Link to="customers" class="nav-link text-white">
-            Customers
+            Users
           </Link>
         </li>
         <li
           className={` ${active === "reports" && "bg-grey-transparent"} me-2`}
           onClick={() => setActive("reports")}
         >
-          <Link to="reports" class="nav-link text-white">
+          <Link to="reports" class="nav-link text-white no-pointer">
             Reports
           </Link>
         </li>
@@ -63,7 +63,7 @@ const Sidebar = () => {
           className={` ${active === "coupons" && "bg-grey-transparent"} me-2`}
           onClick={() => setActive("coupons")}
         >
-          <Link to="coupons" class="nav-link text-white">
+          <Link to="coupons" class="nav-link text-white no-pointer">
             Coupons
           </Link>
         </li>
@@ -76,7 +76,7 @@ const Sidebar = () => {
           className={` ${active === "global" && "bg-grey-transparent"} me-2`}
           onClick={() => setActive("global")}
         >
-          <Link to="global-settings" class="nav-link text-white">
+          <Link to="global-settings" class="nav-link text-white no-pointer">
             Global Settings
           </Link>
         </li>

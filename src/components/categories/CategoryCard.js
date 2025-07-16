@@ -4,6 +4,7 @@ import CategoryUpdateForm from "./CategoryUpdateForm";
 const CategoryCard = (props) => {
   const [showDescription, setShowDescription] = useState(false);
   const { category, id, onDelete, descr, onTrigger } = props;
+  console.log("id in card: ", id);
 
   return (
     <div
@@ -37,7 +38,7 @@ const CategoryCard = (props) => {
           />
           <button
             className="btn btn-outline-danger"
-            onClick={() => onDelete(id)}
+            onClick={() => onDelete(id, category)}
           >
             <i className="bi bi-trash"></i>
           </button>

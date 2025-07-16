@@ -5,12 +5,15 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
+import { useMutation } from "@apollo/client";
+import { SIGN_UP } from "../apollo/userAuthentication/userMutations";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [signUp] = useMutation(SIGN_UP);
   const navigate = useNavigate();
   const userState = useSelector((state) => state.user.status);
 
@@ -18,24 +21,27 @@ const SignUp = () => {
     if (userState) setTimeout(() => navigate("/"), 500);
   }, [userState]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios
-      .post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/sign-up`, {
-        firstName,
-        lastName,
-        email,
-        password,
-      })
-      .then((response) => {
-        response.status === 201 && navigate("/sign-in");
-      })
-      .catch((err) => {
-        if (err.status === 409) {
-          toast.error(err.response.data, { autoClose: 2000 });
-          setTimeout(() => navigate("/sign-in"), 3000);
-        }
+    try {
+      const { data } = await signUp({
+        variables: {
+          firstName,
+          lastName,
+          email,
+          password,
+        },
       });
+      console.log(data);
+      navigate("/sign-in");
+    } catch (err) {
+      const msg = err?.message
+        ?.split(" ")
+        ?.slice(5)
+        ?.join(" ")
+        ?.replaceAll("`", "");
+      toast.error(msg);
+    }
   };
   if (userState) return <></>;
   return (

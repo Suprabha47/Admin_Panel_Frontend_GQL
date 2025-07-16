@@ -3,11 +3,14 @@ import CategoryCard from "./CategoryCard";
 import { useEffect } from "react";
 import CATEGORIES from "../../utils/CATEGORIES";
 import CategoryAddForm from "./CategoryAddForm";
-import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import { useMutation } from "@apollo/client";
+import { DELETE_CATEGORY } from "../../apollo/categories/categoryMutations";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
   const [trigger, setTrigger] = useState(false);
+  const [deleteCategory] = useMutation(DELETE_CATEGORY);
 
   useEffect(() => {
     fetchData();
@@ -17,15 +20,26 @@ const Categories = () => {
   const fetchData = async () => {
     const data = await CATEGORIES();
     setCategories(data);
+    console.log("categories: ", categories);
   };
-  const handleDelete = (id) => {
-    axios
-      .delete(`${process.env.REACT_APP_BACKEND_URL}/api/categories/${id}`)
-      .then((res) => {
-        console.log(res);
-        setTrigger(!trigger);
-      })
-      .catch((err) => console.log(err));
+  const handleDelete = async (id, category) => {
+    try {
+      const { data } = await deleteCategory({
+        variables: {
+          id,
+        },
+      });
+      toast.success(`Category ${category} deleted.`, {
+        autoClose: 3000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      handleTrigger();
+    } catch (err) {
+      console.log("Error: ", err);
+      toast.error("Error occurred");
+    }
   };
   const handleTrigger = () => {
     setTrigger((prev) => !prev);
@@ -48,7 +62,7 @@ const Categories = () => {
         </div>
         <CategoryAddForm onTrigger={handleTrigger} mode="add" />
       </div>
-      {categories.length === 0 ? (
+      {!categories || categories.length === 0 ? (
         <>
           {" "}
           <hr></hr>
@@ -59,15 +73,16 @@ const Categories = () => {
       ) : (
         categories.map((c) => (
           <CategoryCard
-            key={c._id}
+            key={c.id}
             category={c.categoryName}
             descr={c.categoryDescription}
-            id={c._id}
+            id={c.id}
             onDelete={handleDelete}
             onTrigger={handleTrigger}
           />
         ))
       )}
+      <ToastContainer />
     </div>
   );
 };

@@ -1,51 +1,41 @@
-import {
-  signInWithPopup,
-  auth,
-  //facebookProvider,
-  googleProvider,
-} from "../utils/firebase";
-import axios from "axios";
+import { signInWithPopup, auth, googleProvider } from "../utils/firebase";
+import { useMutation } from "@apollo/client";
 import { useDispatch } from "react-redux";
+import { GOOGLE_AUTH } from "../apollo/userAuthentication/userMutations";
 import { changeUserState } from "../redux/userSlice";
 
 const SignUpInBtn = () => {
   const dispatch = useDispatch();
+  const [googleAuth] = useMutation(GOOGLE_AUTH);
 
   const handleGoogleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
+
       const { uid, displayName, email, photoUrl } = user;
-      console.log("user data: ", uid, displayName, email, photoUrl);
-      await axios
-        .post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/google-auth`, {
-          uid,
-          displayName,
+
+      const nameParts = displayName?.trim()?.split(" ") || ["User", "Name"];
+
+      const firstName = nameParts[0];
+      const lastName = nameParts.splice(1).join(" ");
+
+      const { data } = await googleAuth({
+        variables: {
+          googleId: uid,
+          firstName,
+          lastName,
           email,
           photoUrl,
-        })
-        .then((res) => {
-          if (res.status === 200 || res.status === 201) {
-            const name = res.data.firstName;
-            dispatch(changeUserState({ name, status: true }));
-          } else {
-            console.log("Unexpected status code");
-          }
-        })
-        .catch((err) => console.error("Login Failed ", err));
+        },
+      });
+
+      const { firstName: name, photoUrl: url } = await data.googleAuth;
+      dispatch(changeUserState({ name: name, status: true }));
     } catch (err) {
-      console.error("Google login error: ", err);
+      console.log("Error: ", err);
     }
   };
-
-  // const handleFacebookLogin = async () => {
-  //   try {
-  //     const result = await signInWithPopup(auth, facebookProvider);
-  //     console.log("Facebook user:", result.user);
-  //   } catch (err) {
-  //     console.error("Facebook login error:", err);
-  //   }
-  // };
 
   return (
     <div className="d-grid gap-2">

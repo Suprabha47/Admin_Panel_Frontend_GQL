@@ -14,18 +14,22 @@ export const INITIALFORMVALUE = () => {
   return initial;
 };
 
-export const FORMIKSCHEMA = () => {
-  const yupObj = Yup.object({
+export const FORMIKSCHEMA = (isEditMode = false) => {
+  return Yup.object({
     productName: Yup.string().required("Product name required."),
     productDescription: Yup.string().required(
       "Product description is required."
     ),
     price: Yup.number().required("Product price is required."),
-    image: Yup.mixed().required("Image Required"),
+    // image: Yup.mixed().when("$isEditMode", {
+    //   is: true,
+    //   then: () => Yup.mixed(),
+    //   otherwise: () => Yup.mixed().required("Image is required"),
+    // }),
+    //image: isEditMode ? Yup.mixed() : Yup.mixed().required("Image is required"),
     category: Yup.string().required("Choose a category"),
     discountPrice: Yup.number().required("Add discount price"),
     seoTitle: Yup.string().required("Seo title required"),
     seoDescription: Yup.string().required("Required"),
   });
-  return yupObj;
 };

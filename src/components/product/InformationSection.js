@@ -31,7 +31,7 @@ const InformationSection = () => {
           </div>
           <hr className="my-5"></hr>
 
-          <div>
+          {/* <div>
             <h5 className="text-black my-4">Images</h5>
             <div className="mb-3">
               <input
@@ -49,7 +49,7 @@ const InformationSection = () => {
               />
             </div>
           </div>
-          <hr className="my-5"></hr>
+          <hr className="my-5"></hr> */}
           <div>
             <h5 className="text-black my-4">Price</h5>
             <div className="d-flex justify-content-between ">

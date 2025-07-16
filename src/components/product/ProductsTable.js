@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import PRODUCTS from "../../utils/PRODUCTS";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import CATEGORIES from "../../utils/CATEGORIES";
 import { toast } from "react-toastify";
 import ProductRow from "./ProductRow";
+import { useMutation, useQuery } from "@apollo/client";
+import { PRODUCT_LISTING } from "../../apollo/products/productQuery";
+import { DELETE_PRODUCT } from "../../apollo/products/productMutation";
 
 const TableHeader = () => (
   <div className="d-flex justify-content-between align-items-center m-3 ">
@@ -25,11 +26,18 @@ const ProductsTable = () => {
   const [allProducts, setAllProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [deleteProduct] = useMutation(DELETE_PRODUCT);
+  const { data, loading, error, refetch } = useQuery(PRODUCT_LISTING, {
+    fetchPolicy: "network-only",
+  });
 
   useEffect(() => {
-    fetchProducts();
     fetchCategories();
-  }, []);
+    if (!loading && data?.getAllProducts) {
+      setAllProducts(data.getAllProducts);
+      setProducts(data.getAllProducts);
+    }
+  }, [loading, data]);
 
   // filtering products based on category
   useEffect(() => {
@@ -46,9 +54,11 @@ const ProductsTable = () => {
   }, [selectedCategory, allProducts]);
 
   const fetchProducts = async () => {
-    const res = await PRODUCTS();
-    setProducts(res);
-    setAllProducts(res);
+    if (loading) return { loading: true };
+    if (error) return error;
+    console.log("data: ", data.getAllProducts);
+    setAllProducts(data.getAllProducts);
+    console.log("fetched products: ", allProducts);
   };
 
   const fetchCategories = async () => {
@@ -71,21 +81,19 @@ const ProductsTable = () => {
     setProducts(searchList);
   };
   // to delete item from the list
-  const handleDel = (_id) => {
-    axios
-      .delete(`${process.env.REACT_APP_BACKEND_URL}/api/products/${_id}`, {})
-      .then((res) => {
-        const updated = allProducts.filter((p) => p._id !== _id);
-        toast.success(`Product ${res.data.result.productName} deleted!`, {
-          autoClose: 3000,
-        });
-        setAllProducts(updated);
-        setProducts(updated);
-      })
-      .catch((err) => console.log(err));
+  const handleDel = async (id) => {
+    const { data } = await deleteProduct({
+      variables: {
+        id,
+      },
+    });
+    console.log("delete data: ", data.deleteProduct);
+    const refetched = await refetch();
+    setAllProducts(refetched.data.getAllProducts);
+    setProducts(refetched.data.getAllProducts);
   };
 
-  if (!allProducts || allProducts.length === 0)
+  if (loading)
     return (
       <>
         {" "}
@@ -144,7 +152,7 @@ const ProductsTable = () => {
             <tbody>
               {products.map((p, index) => (
                 <ProductRow
-                  key={p._id}
+                  key={p.id}
                   index={index}
                   p={p}
                   handleDel={handleDel}

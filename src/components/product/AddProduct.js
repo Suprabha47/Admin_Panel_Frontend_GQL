@@ -3,89 +3,83 @@ import InformationSection from "./InformationSection";
 import CategorySection from "./CategorySection";
 import { toast } from "react-toastify";
 import SEOSection from "./SEOSection";
-import axios from "axios";
-import {
-  data,
-  Link,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { INITIALFORMVALUE, FORMIKSCHEMA } from "../../utils/INITIALFORMVALUE";
 import uploadImage from "../../utils/uploadImage";
-
-const validationSchema = FORMIKSCHEMA();
+import { useMutation, useQuery } from "@apollo/client";
+import { PRODUCT_BY_ID } from "../../apollo/products/productQuery";
+import {
+  ADD_PRODUCT,
+  UPDATE_PRODUCT,
+} from "../../apollo/products/productMutation";
 
 const AddProduct = () => {
-  const navigate = useNavigate();
-
   const [initialData, setInitialData] = useState(INITIALFORMVALUE);
+  const [createProduct] = useMutation(ADD_PRODUCT);
+  const [updateProduct] = useMutation(UPDATE_PRODUCT);
   const { id } = useParams();
-  const location = useLocation();
+  const navigate = useNavigate();
+  const { data, loading, error } = useQuery(PRODUCT_BY_ID, {
+    variables: { id },
+    skip: !id,
+  });
+  const validationSchema = FORMIKSCHEMA(!!id);
 
   useEffect(() => {
-    if (location.state) {
-      setInitialData(location.state);
-    } else if (id) {
-      axios
-        .get(`${process.env.REACT_APP_BACKEND_URL}/api/products/${id}`)
-        .then((res) => {
-          const data = res.data.data;
-          setInitialData(data);
-        })
-        .catch((err) => console.log("product detail error: ", err));
+    try {
+      if (!id) return;
+      if (loading || error || !data) return;
+      console.log("datata receiveddd: ", data?.getProduct);
+      setInitialData(data?.getProduct);
+    } catch (err) {
+      console.log("error: ", err);
     }
-  }, [id, location.state]);
+  }, [id, loading, error, data]);
 
   const handleSubmit = async (values) => {
-    let imageName;
+    //let imageName;
     try {
-      if (values.image instanceof File) {
-        imageName = await uploadImage(values.image);
-        console.log("image name: ", imageName);
-      }
+      // if (values.image instanceof File) {
+      //   imageName = await uploadImage(values.image);
+      //   console.log("image name insideee: ", imageName);
+      // } else if (typeof values.image === "string") {
+      //   imageName = values.image; // Keep existing image
+      // }
 
-      delete values["image"];
-
-      const payload = { ...values, image: imageName };
+      // console.log("Image name outside::");
+      // delete values["image"];
+      delete values["__typename"];
+      const payload = { ...values };
 
       if (!id) {
-        axios
-          .post(
-            `${process.env.REACT_APP_BACKEND_URL}/api/products/add-product`,
-            payload
-          )
-          .then((res) => {
-            toast.success("Product Added!");
-          })
-          .catch((err) => {
-            toast.error(err.response.data);
-          });
+        const { data } = await createProduct({
+          variables: {
+            input: {
+              ...payload,
+            },
+          },
+        });
+        console.log("dataaaaaaaa: ", data.createProduct);
+        toast.success("Product Added!");
       } else {
-        axios
-          .put(
-            `${process.env.REACT_APP_BACKEND_URL}/api/products/edit-product`,
-            {
-              _id: id,
-              p: payload,
-            }
-          )
-          .then((res) => {
-            toast.success("Product Updated!\nNavigating to Products page.", {
-              autoClose: 3000,
-            });
-            setTimeout(() => navigate("/products"), 3000);
-          })
-          .catch((err) => {
-            toast.error(err.response.data);
-          });
+        const { data } = await updateProduct({
+          variables: {
+            id,
+            input: { ...payload },
+          },
+        });
+
+        toast.success("Product Updated!\nNavigating to Products page.", {
+          autoClose: 3000,
+        });
+        setTimeout(() => navigate("/products"), 3000);
       }
 
       setInitialData(INITIALFORMVALUE);
     } catch (err) {
       console.log("some error occured: ", err);
-      toast.error(err.response?.data || "Something went wrong!");
+      toast.error(err || "Something went wrong!");
     }
   };
 
@@ -101,6 +95,9 @@ const AddProduct = () => {
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
         enableReinitialize
+        validateOnBlur={false}
+        validateOnChange={false}
+        context={{ isEditMode: !!id }}
       >
         {({ values, resetForm }) => (
           <>

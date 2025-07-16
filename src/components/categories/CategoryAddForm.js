@@ -1,30 +1,30 @@
 import { useState } from "react";
-import axios from "axios";
+import { useMutation } from "@apollo/client";
+import { CREATE_CATEGORY } from "../../apollo/categories/categoryMutations";
+import { toast } from "react-toastify";
 
 const CategoryAddForm = ({ onTrigger }) => {
   const [categoryName, setCategoryName] = useState("");
   const [categoryDescription, setCategoryDescription] = useState("");
+  const [createCategory] = useMutation(CREATE_CATEGORY);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    axios
-      .post(
-        `${process.env.REACT_APP_BACKEND_URL}/api/categories/add-category`,
-        { categoryName, categoryDescription }
-      )
-      .then((res) => onTrigger())
-      .catch((err) => console.log("error occured: ", err));
-    // axios
-    // .put(
-    //   `${process.env.REACT_APP_BACKEND_URL}/api/categories/update-category/${id}`,
-    //   { categoryName, categoryDescription }
-    // )
-    // .then((res) => onTrigger())
-    // .catch((err) => console.log("error occured: ", err));
-
-    setCategoryName("");
-    setCategoryDescription("");
+    try {
+      const { data } = await createCategory({
+        variables: {
+          categoryName,
+          categoryDescription,
+        },
+      });
+      toast.success(`Category ${data.categoryName} added.`);
+      onTrigger();
+      setCategoryName("");
+      setCategoryDescription("");
+    } catch (err) {
+      console.log("error: ", err);
+    }
   };
 
   return (

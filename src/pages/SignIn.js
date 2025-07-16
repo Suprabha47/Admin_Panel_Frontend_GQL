@@ -5,12 +5,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { changeUserState } from "../redux/userSlice";
 import { toast, ToastContainer } from "react-toastify";
+import { SIGN_IN } from "../apollo/userAuthentication/userMutations";
+import { useMutation } from "@apollo/client";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [signIn] = useMutation(SIGN_IN);
   const userState = useSelector((state) => state.user.status);
 
   useEffect(() => {
@@ -18,29 +21,21 @@ const SignIn = () => {
     if (userState) setTimeout(() => navigate("/"), 500);
   }, [userState]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios
-      .post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/sign-in`, {
-        email,
-        password,
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          const name = response.data;
-          console.log("in response block");
-          return (
-            dispatch(changeUserState({ name, status: true })) && navigate("/")
-          );
-        }
-      })
-      .catch((err) => {
-        console.log("error block!");
-        console.log(err);
-        toast.error("Invalid Credentials", { autoClose: 3000 });
-        setEmail("");
-        setPassword("");
+    try {
+      const { data } = await signIn({
+        variables: {
+          email,
+          password,
+        },
       });
+      const { firstName } = await data.signIn;
+      dispatch(changeUserState({ name: firstName, status: true }));
+    } catch (err) {
+      toast.error(err.message);
+      console.log("error: ", err.message);
+    }
   };
   if (userState) return <></>;
   return (
