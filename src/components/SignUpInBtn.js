@@ -13,7 +13,7 @@ const SignUpInBtn = () => {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
 
-      const { uid, displayName, email, photoUrl } = user;
+      const { uid, displayName, photoUrl } = user;
 
       const nameParts = displayName?.trim()?.split(" ") || ["User", "Name"];
 
@@ -25,7 +25,6 @@ const SignUpInBtn = () => {
           googleId: uid,
           firstName,
           lastName,
-          email,
           photoUrl,
         },
       });

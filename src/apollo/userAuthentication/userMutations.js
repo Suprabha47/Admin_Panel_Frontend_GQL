@@ -29,18 +29,15 @@ export const GOOGLE_AUTH = gql`
     $googleId: String!
     $firstName: String
     $lastName: String
-    $email: String!
     $photoUrl: String
   ) {
     googleAuth(
       googleId: $googleId
       firstName: $firstName
       lastName: $lastName
-      email: $email
       photoUrl: $photoUrl
     ) {
       firstName
-      email
       photoUrl
     }
   }
