@@ -27,8 +27,9 @@ const ProductsTable = () => {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [deleteProduct] = useMutation(DELETE_PRODUCT);
+
   const { data, loading, error, refetch } = useQuery(PRODUCT_LISTING, {
-    fetchPolicy: "network-only",
+    fetchPolicy: "cache-and-network",
   });
 
   useEffect(() => {
@@ -53,14 +54,6 @@ const ProductsTable = () => {
     setProducts(filteredList);
   }, [selectedCategory, allProducts]);
 
-  const fetchProducts = async () => {
-    if (loading) return { loading: true };
-    if (error) return error;
-    console.log("data: ", data.getAllProducts);
-    setAllProducts(data.getAllProducts);
-    console.log("fetched products: ", allProducts);
-  };
-
   const fetchCategories = async () => {
     const list = await CATEGORIES();
     setCategories(list);
@@ -80,6 +73,7 @@ const ProductsTable = () => {
 
     setProducts(searchList);
   };
+
   // to delete item from the list
   const handleDel = async (id) => {
     const { data } = await deleteProduct({

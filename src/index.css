@@ -124,3 +124,10 @@ body {
 .no-pointer:hover {
   background-color: #1e2a4a !important;
 }
+.edit-icon {
+  display: inline;
+  height: 1rem;
+}
+.cursor-pointer {
+  cursor: pointer;
+}

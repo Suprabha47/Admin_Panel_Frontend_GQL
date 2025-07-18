@@ -4,7 +4,7 @@ import client from "../apollo/client";
 const CATEGORIES = async () => {
   const { data } = await client.query({
     query: CATEGORIES_LIST,
-    fetchPolicy: "network-only", // to get updated list, otherwise was giving stale or cached result
+    fetchPolicy: "no-cache",
   });
   console.log("inside: ", data);
   console.log("inside: ", data.getAllCategories);

@@ -3,8 +3,9 @@ import { gql } from "@apollo/client";
 export const CUSTOMER_LISTING = gql`
   query {
     getAllCustomers {
+      id
       customerName
-      customerEmailAddress
+      location
       orders {
         totalAmount
       }
@@ -17,11 +18,18 @@ export const CUSTOMER_BY_ID = gql`
     getCustomer(id: $id) {
       customerName
       customerEmailAddress
+      location
       orders {
         id
         totalAmount
         status
         createdAt
+        shippingAddress {
+          address
+          city
+          pinCode
+          country
+        }
       }
     }
   }

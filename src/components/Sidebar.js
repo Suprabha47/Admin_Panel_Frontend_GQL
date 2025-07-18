@@ -22,7 +22,7 @@ const Sidebar = () => {
           onClick={() => setActive("orders")}
         >
           <Link to="orders" class="nav-link text-white">
-            Orders <span class="badge bg-light text-dark ms-2">16</span>
+            Orders
           </Link>
         </li>
         <li
@@ -48,24 +48,26 @@ const Sidebar = () => {
           onClick={() => setActive("customers")}
         >
           <Link to="customers" class="nav-link text-white">
-            Users
+            Customers
           </Link>
         </li>
         <li
           className={` ${active === "reports" && "bg-grey-transparent"} me-2`}
           onClick={() => setActive("reports")}
         >
-          <Link to="reports" class="nav-link text-white no-pointer">
-            Reports
-          </Link>
+          {/* <Link to="reports" class="nav-link text-white no-pointer"> */}
+          <span className="nav-link text-white no-pointer">Report</span>
+
+          {/* </Link> */}
         </li>
         <li
           className={` ${active === "coupons" && "bg-grey-transparent"} me-2`}
           onClick={() => setActive("coupons")}
         >
-          <Link to="coupons" class="nav-link text-white no-pointer">
-            Coupons
-          </Link>
+          {/* <Link to="coupons" class="nav-link text-white no-pointer"> */}
+          <span className="nav-link text-white no-pointer">Coupons</span>
+
+          {/* </Link> */}
         </li>
       </ul>
 
@@ -76,9 +78,9 @@ const Sidebar = () => {
           className={` ${active === "global" && "bg-grey-transparent"} me-2`}
           onClick={() => setActive("global")}
         >
-          <Link to="global-settings" class="nav-link text-white no-pointer">
-            Global Settings
-          </Link>
+          {/* <Link to="global-settings" class="nav-link text-white no-pointer"> */}
+          <span class="nav-link text-white no-pointer">Global Settings</span>
+          {/* </Link> */}
         </li>
       </ul>
     </div>

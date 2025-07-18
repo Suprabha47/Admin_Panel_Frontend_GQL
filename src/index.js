@@ -7,10 +7,10 @@ import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import Dashboard from "./pages/Dashboard";
 import { store, persistor } from "./redux/store";
-import Orders from "./components/Orders";
+import Orders from "./components/orders/Orders";
 import Products from "./components/product/Products";
 import Categories from "./components/categories/Categories";
-import Customers from "./components/Customers";
+import Customers from "./components/customers/Customers";
 import Reports from "./components/Reports";
 import Coupons from "./components/Coupons";
 import GlobalSettings from "./components/GlobalSettings";
@@ -20,6 +20,8 @@ import DashboardOutlet from "./components/DashboardOutlet";
 import { PersistGate } from "redux-persist/integration/react";
 import { ApolloProvider } from "@apollo/client";
 import client from "./apollo/client";
+import CustomerProfile from "./components/customers/CustomerProfile";
+import CustomerTable from "./components/customers/CustomerTable";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -39,7 +41,10 @@ root.render(
                 <Route path="update-product/:id" element={<AddProduct />} />
               </Route>
               <Route path="categories" element={<Categories />} />
-              <Route path="customers" element={<Customers />} />
+              <Route path="customers" element={<Customers />}>
+                <Route index element={<CustomerTable />} />
+                <Route path="profile/:id" element={<CustomerProfile />} />
+              </Route>
               <Route path="reports" element={<Reports />} />
               <Route path="coupons" element={<Coupons />} />
               <Route path="global-settings" element={<GlobalSettings />} />
