@@ -35,7 +35,6 @@ const CustomerTable = () => {
   if (loading) {
     return (
       <>
-        <hr></hr>
         <div class="d-flex justify-content-center my-4">
           <div class="spinner-border  text-primary" role="status"></div>
         </div>
@@ -47,14 +46,24 @@ const CustomerTable = () => {
     <div className="container mt-4">
       <CustomerHeader customers={customers} heading="table" />
       <SearchFilter />
-      {/* Customer Table */}
-      <table className="table table-hover align-middle">
+      <table
+        className="table table-hover align-middle"
+        style={{ borderCollapse: "separate", borderSpacing: "0 4px" }}
+      >
         <thead>
-          <tr>
-            <th>Name</th>
-            <th>Location</th>
-            <th>Orders</th>
-            <th>Spent</th>
+          <tr className="">
+            <th className="rounded-start">
+              <i class="bi bi-person-fill pe-2"></i>Name
+            </th>
+            <th>
+              <i class="bi bi-geo-alt-fill pe-2"></i>Location
+            </th>
+            <th>
+              <i class="bi bi-box-fill pe-2"></i>Orders
+            </th>
+            <th className="rounded-end">
+              <i class="bi bi-currency-dollar"></i>Spent
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -62,14 +71,17 @@ const CustomerTable = () => {
             <tr
               key={customer.id}
               onClick={() => navigate(`profile/${customer.id}`)}
-              className=" cursor-pointer"
+              className="cursor-pointer bg-white"
+              style={{ borderRadius: "12px", overflow: "hidden" }}
             >
-              <td className="d-flex align-items-center gap-2">
-                {customer.customerName}
+              <td className="rounded-start align-middle">
+                <div className="d-flex align-items-center gap-2">
+                  {customer.customerName}
+                </div>
               </td>
-              <td>{customer.location}</td>
-              <td>{customer.orders.length}</td>
-              <td>
+              <td className="align-middle">{customer.location}</td>
+              <td className="align-middle">{customer.orders.length}</td>
+              <td className="rounded-end align-middle">
                 $
                 {customer.orders.reduce(
                   (total, order) => total + order.totalAmount,

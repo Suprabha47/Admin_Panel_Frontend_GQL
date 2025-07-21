@@ -42,9 +42,6 @@ const SignUpInBtn = () => {
       <button className="btn btn-outline-danger" onClick={handleGoogleLogin}>
         <i className="bi bi-google me-2"></i> Continue with Google
       </button>
-      <button className="btn btn-outline-primary" disabled>
-        <i className="bi bi-facebook me-2"></i> Continue with Facebook
-      </button>
     </div>
   );
 };

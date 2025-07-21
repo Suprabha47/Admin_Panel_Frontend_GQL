@@ -40,7 +40,6 @@ const OrderTable = () => {
   if (loading)
     return (
       <>
-        <hr></hr>
         <div class="d-flex justify-content-center my-4">
           <div class="spinner-border  text-primary" role="status"></div>
         </div>
@@ -56,34 +55,52 @@ const OrderTable = () => {
         />
       </div>
 
-      <table className="table table-hover align-middle">
+      <table
+        className="table table-hover align-middle"
+        style={{ borderCollapse: "separate", borderSpacing: "0 4px" }}
+      >
         <thead>
           <tr>
-            <th>Order</th>
-            <th>Date</th>
-            <th>Customer</th>
-            <th>Order Status</th>
-            <th>Total</th>
+            <th className="rounded-start">
+              <i class="bi bi-hash pe-2"></i>Order ID
+            </th>
+            <th>
+              <i class="bi bi-calendar-event pe-2"></i>Date
+            </th>
+            <th>
+              <i class="bi bi-person pe-2"></i>Customer
+            </th>
+            <th>
+              <i class="bi bi-truck pe-2"></i>Order Status
+            </th>
+            <th className="rounded-end">
+              {" "}
+              <i class="bi bi-currency-dollar pe-2"></i>Total
+            </th>
           </tr>
         </thead>
         <tbody>
           {orders.map((order) => (
             <tr key={order.id}>
-              <td className="text-primary">#{order.id}</td>
-              <td>
+              <td className="rounded-start align-middle">#{order.id}</td>
+              <td className="align-middle">
                 {new Date(parseInt(order.createdAt)).toLocaleDateString()}
               </td>
-              <td>{order.customer.customerName}</td>
-              <td className="flex justify-content-between">
+              <td className="align-middle">{order.customer.customerName}</td>
+              <td className="flex justify-content-between align-middle">
                 <select
                   value={order.status}
                   onChange={(e) => handleStatusChange(order.id, e.target.value)}
                   style={{
-                    color:
-                      (order.status === "PENDING" && "orange") ||
-                      (order.status === "SHIPPED" && "blue") ||
-                      (order.status === "DELIVERED" && "green") ||
-                      (order.status === "CANCELLED" && "red"),
+                    color: "#fff",
+                    border: "none",
+                    padding: "2px",
+                    opacity: "0.8",
+                    backgroundColor:
+                      (order.status === "PENDING" && "#ebeb38ff") ||
+                      (order.status === "SHIPPED" && "#0c64e9ff") ||
+                      (order.status === "DELIVERED" && "#1be32cff") ||
+                      (order.status === "CANCELLED" && "#e93c3cff"),
                   }}
                 >
                   {status.map((s, i) => (
@@ -93,7 +110,7 @@ const OrderTable = () => {
                   ))}
                 </select>
               </td>
-              <td>${order.totalAmount}</td>
+              <td className="rounded-end align-middle">${order.totalAmount}</td>
             </tr>
           ))}
         </tbody>

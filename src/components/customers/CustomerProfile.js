@@ -51,10 +51,10 @@ const CustomerProfile = () => {
     <PrimeReactProvider>
       <CustomerHeader />
       <Link to="/customers" className="text-decoration-none py-1 m-3">
-        <img src={logo} alt="back-logo" style={{ width: "20px" }} />
+        <i class="bi bi-arrow-left-circle pe-2"></i>
         back
       </Link>
-      <div className="container my-4">
+      <div className="container my-4 ">
         <CustInfoCard
           customer={customer}
           address={address}

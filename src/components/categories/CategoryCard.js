@@ -4,15 +4,14 @@ import CategoryUpdateForm from "./CategoryUpdateForm";
 const CategoryCard = (props) => {
   const [showDescription, setShowDescription] = useState(false);
   const { category, id, onDelete, descr, onTrigger } = props;
-  console.log("id in card: ", id);
 
   return (
     <div
-      className="bg-white  border-0 shadow-sm rounded m-4"
+      className="bg-white  border-0 shadow-sm rounded m-4 p-4"
       style={{ width: "40rem" }}
     >
       <div
-        className="flex justify-content-between  p-3 category"
+        className="p-3 category"
         onMouseEnter={() => setShowDescription(true)}
         onMouseLeave={() => setShowDescription(false)}
       >

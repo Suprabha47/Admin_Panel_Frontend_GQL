@@ -20,11 +20,20 @@ const Dashboard = () => {
 
   return (
     <div className="d-flex flex-column">
-      <Header userName={name} />
-      <div className="d-flex ">
+      <div className="d-flex " style={{ minHeight: "100vh" }}>
         <Sidebar />
-        <Outlet />
-        <ToastContainer />
+        <div
+          className="d-flex flex-column flex-wrap p-3 mt-0"
+          style={{
+            marginTop: "0px",
+            marginLeft: "240px",
+            width: "100%",
+          }}
+        >
+          <Header userName={name} />
+          <Outlet />
+          <ToastContainer />
+        </div>
       </div>
     </div>
   );

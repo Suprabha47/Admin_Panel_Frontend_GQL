@@ -38,75 +38,97 @@ const SignIn = () => {
   };
   if (userState) return <></>;
   return (
-    <div className="d-flex align-items-center justify-content-center min-vh-100 bg-light">
-      <form
-        onSubmit={handleSubmit}
-        className="card shadow-sm p-4"
-        style={{ width: "100%", maxWidth: "26rem" }}
-      >
-        <h3 className="text-center mb-2">Sign In</h3>
-        <p className="text-center mb-4">
-          New to Our Product? <Link to="/sign-up">Create an Account</Link>
-        </p>
+    <div className="bg-light min-vh-100 d-flex justify-content-center align-items-center position-relative overflow-hidden">
+      {/* Background circles */}
+      <div
+        className="position-absolute rounded-circle bg-info bg-gradient opacity-75"
+        style={{
+          width: "300px",
+          height: "300px",
+          top: "-100px",
+          right: "-100px",
+        }}
+      />
+      <div
+        className="position-absolute rounded-circle bg-primary bg-gradient opacity-50"
+        style={{
+          width: "250px",
+          height: "250px",
+          bottom: "-100px",
+          left: "-100px",
+        }}
+      />
+      <div
+        className="position-absolute rounded-circle bg-primary bg-gradient opacity-25"
+        style={{ width: "30px", height: "30px", top: "60%", right: "10%" }}
+      />
+      <div
+        className="position-absolute rounded-circle bg-info bg-gradient opacity-50"
+        style={{ width: "15px", height: "15px", top: "20%", left: "15%" }}
+      />
 
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">
-            Email
-          </label>
-          <input
-            type="email"
-            className="form-control"
-            id="email"
-            placeholder="Enter Email Address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
+      <div className="d-flex align-items-center justify-content-center min-vh-100 bg-light">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white rounded shadow p-5"
+          style={{ width: "100%", maxWidth: "400px", zIndex: 1 }}
+        >
+          <div className="text-center mb-4">
+            <h3 className="mt-2 fw-bold">Sign In</h3>
+            <p className="text-center  mb-4">
+              New to Our Product? <Link to="/sign-up">Create an Account</Link>
+            </p>
+          </div>
 
-        <div className="mb-3">
-          <label htmlFor="password" className="form-label">
-            Password
-          </label>
-          <input
-            type="password"
-            className="form-control"
-            id="password"
-            placeholder="Enter Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
+          <div className="mb-3">
+            <input
+              type="email"
+              className="form-control"
+              id="email"
+              placeholder="Email Address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
 
-        <div className="form-check mb-3">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            id="keepSignedIn"
-          />
-          <label className="form-check-label" htmlFor="keepSignedIn">
-            Keep me signed in
-          </label>
-        </div>
+          <div className="mb-3">
+            <input
+              type="password"
+              className="form-control"
+              id="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
 
-        <div className="d-grid mb-3">
-          <button className="btn btn-dark" type="submit">
-            Login
-          </button>
-        </div>
+          <div className="form-check">
+            <input type="checkbox" className="form-check-input" id="remember" />
+            <label htmlFor="remember" className="form-check-label">
+              Remember me?
+            </label>
+          </div>
 
-        <div className="text-center mb-3">
-          <Link className="text-decoration-none">Forgot your password?</Link>
-        </div>
+          <div className="d-grid my-3 ">
+            <button className="btn btn-primary w-100 mb-3" type="submit">
+              Login
+            </button>
+          </div>
 
-        <hr />
+          <div className="text-center mb-3">
+            <Link className="text-decoration-none">Forgot your password?</Link>
+          </div>
 
-        <p className="text-center">Or sign in using:</p>
+          <hr />
 
-        <SignUpInBtn />
-      </form>
-      <ToastContainer />
+          <p className="text-center">Or sign in using:</p>
+
+          <SignUpInBtn />
+        </form>
+        <ToastContainer />
+      </div>
     </div>
   );
 };

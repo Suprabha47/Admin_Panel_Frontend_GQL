@@ -3,87 +3,114 @@ import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   const [active, setActive] = useState("dashboard");
+  const [collapsed, setCollapsed] = useState(false);
+
+  const navItems = [
+    {
+      key: "dashboard",
+      label: "Dashboard",
+      route: "/",
+      iconClass: "bi bi-house-door",
+    },
+    {
+      key: "orders",
+      label: "Orders",
+      route: "orders",
+      iconClass: "bi bi-list-task",
+    },
+    {
+      key: "products",
+      label: "Products",
+      route: "products",
+      iconClass: "bi bi-tag",
+    },
+    {
+      key: "categories",
+      label: "Categories",
+      route: "categories",
+      iconClass: "bi bi-folder",
+    },
+    {
+      key: "customers",
+      label: "Customers",
+      route: "customers",
+      iconClass: "bi bi-people",
+    },
+    {
+      key: "reports",
+      label: "Report",
+      disabled: true,
+      iconClass: "bi bi-bar-chart",
+    },
+    {
+      key: "coupons",
+      label: "Coupons",
+      disabled: true,
+      iconClass: "bi bi-star",
+    },
+  ];
 
   return (
-    <div class="sidebar d-flex flex-column p-3 sidebar text-white custom_sticky_bar">
-      <ul class="nav nav-pills flex-column mb-4">
-        <li
-          className={`sidebar-link ${
-            active === "dashboard" && "bg-grey-transparent"
-          } me-2`}
-          onClick={() => setActive("dashboard")}
-        >
-          <Link to="/" class="nav-link text-white ">
-            Dashboard
-          </Link>
-        </li>
-        <li
-          className={` ${active === "orders" && "bg-grey-transparent"} me-2`}
-          onClick={() => setActive("orders")}
-        >
-          <Link to="orders" class="nav-link text-white">
-            Orders
-          </Link>
-        </li>
-        <li
-          className={` ${active === "products" && "bg-grey-transparent"} me-2`}
-          onClick={() => setActive("products")}
-        >
-          <Link to="products" class="nav-link text-white">
-            Products
-          </Link>
-        </li>
-        <li
-          className={` ${
-            active === "categories" && "bg-grey-transparent"
-          } me-2`}
-          onClick={() => setActive("categories")}
-        >
-          <Link to="categories" class="nav-link text-white">
-            Categories
-          </Link>
-        </li>
-        <li
-          className={` ${active === "customers" && "bg-grey-transparent"} me-2`}
-          onClick={() => setActive("customers")}
-        >
-          <Link to="customers" class="nav-link text-white">
-            Customers
-          </Link>
-        </li>
-        <li
-          className={` ${active === "reports" && "bg-grey-transparent"} me-2`}
-          onClick={() => setActive("reports")}
-        >
-          {/* <Link to="reports" class="nav-link text-white no-pointer"> */}
-          <span className="nav-link text-white no-pointer">Report</span>
+    <>
+      {/* Sidebar */}
+      <div
+        className={`sidebar  text-white px-4 py-2 position-fixed vh-100 ${
+          collapsed ? "d-none" : "d-block"
+        } d-md-block`}
+        style={{
+          width: "240px",
+          minWidth: "240px",
+          maxHeight: "100%",
+          backgroundColor: "rgb(59 130 246 / 0.5);",
+        }}
+      >
+        <div>
+          <img src="https://img.icons8.com/ios-filled/24/ffffff/shopping-cart.png" />
+          <span class="fs-4 ms-2 fst-italic mt-2 ">fastcart</span>
+        </div>
+        <hr></hr>
+        <ul className="nav nav-pills flex-column mb-4">
+          {navItems.map((item) => (
+            <li
+              key={item.key}
+              className={`nav-item mb-2  ${
+                active === item.key ? "bg-secondary rounded" : ""
+              }`}
+              onClick={() => !item.disabled && setActive(item.key)}
+            >
+              {item.disabled ? (
+                <span className="nav-link text-white">
+                  <i className={`${item.iconClass} me-2`}> </i>
 
-          {/* </Link> */}
-        </li>
-        <li
-          className={` ${active === "coupons" && "bg-grey-transparent"} me-2`}
-          onClick={() => setActive("coupons")}
-        >
-          {/* <Link to="coupons" class="nav-link text-white no-pointer"> */}
-          <span className="nav-link text-white no-pointer">Coupons</span>
+                  {item.label}
+                </span>
+              ) : (
+                <Link to={item.route} className="nav-link  text-white">
+                  <i className={`${item.iconClass} me-2`}> </i>
+                  {item.label}
+                </Link>
+              )}
+            </li>
+          ))}
+        </ul>
 
-          {/* </Link> */}
-        </li>
-      </ul>
-
-      <hr class="text-secondary"></hr>
-      <h6 class="text-secondary">Settings</h6>
-      <ul class="nav nav-pills flex-column">
-        <li
-          className={` ${active === "global" && "bg-grey-transparent"} me-2`}
-          onClick={() => setActive("global")}
-        >
-          {/* <Link to="global-settings" class="nav-link text-white no-pointer"> */}
-          <span class="nav-link text-white no-pointer">Global Settings</span>
-          {/* </Link> */}
-        </li>
-      </ul>
-    </div>
+        <hr className="text-secondary" />
+        <h6 className="text-secondary">Settings</h6>
+        <ul className="nav nav-pills flex-column">
+          <li
+            className={`nav-item ${
+              active === "global" ? "bg-secondary rounded" : ""
+            }`}
+            onClick={() => setActive("global")}
+          >
+            <span className="nav-link text-white">
+              <i className="bi bi-gear me-2"> </i>Global Settings
+            </span>
+          </li>
+        </ul>
+      </div>
+    </>
   );
 };
+
 export default Sidebar;

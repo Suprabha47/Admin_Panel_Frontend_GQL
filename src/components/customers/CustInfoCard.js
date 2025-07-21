@@ -28,7 +28,7 @@ const CustInfoCard = ({ customer, address, handleDel }) => {
 
   return (
     <>
-      <div className="row g-4">
+      <div className="row g-4 ">
         {/* Left Column */}
         <div className="col-lg-8">
           {/* Customer Info */}

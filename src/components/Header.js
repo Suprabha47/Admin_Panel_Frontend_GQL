@@ -15,30 +15,23 @@ const Header = ({ userName }) => {
   };
 
   return (
-    <div class="header sticky-top">
-      <div class="d-flex align-items-center gap-4">
-        <Link
-          to="/dashboard"
-          class="d-flex align-items-center mb-3 text-white text-decoration-none"
-        >
-          <img src="https://img.icons8.com/ios-filled/24/ffffff/shopping-cart.png" />
-          <span class="fs-4 ms-2">fastcart</span>
-        </Link>
-        {/* <input
-          class="form-control form-control-sm search "
-          type="search"
-          placeholder="Search..."
-          style={{ width: "200px" }}
-        /> */}
-      </div>
-      <div
-        class="d-flex justify-content-center
-      align-items-center gap-3"
-      >
-        <div class="icon-badge"></div>
-        <div class="">{userName}</div>
-        <div onClick={handleLogout} style={{ cursor: "pointer" }}>
-          Logout
+    <div className="header sticky-top ">
+      <div className="container-fluid">
+        <div className="d-flex justify-content-between align-items-center">
+          {/* Left content (like logo or menu toggle) */}
+          <div className="fw-bold fs-5"></div>
+
+          {/* Right content */}
+          <div className="d-flex align-items-center gap-3">
+            <div className="me-3">
+              <i class="bi bi-person-circle pe-2"></i>
+              {userName}
+            </div>
+            <div onClick={handleLogout} style={{ cursor: "pointer" }}>
+              <i class="bi bi-box-arrow-left pe-2"></i>
+              Logout
+            </div>
+          </div>
         </div>
       </div>
     </div>

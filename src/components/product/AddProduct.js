@@ -116,6 +116,7 @@ const AddProduct = () => {
               to="/products"
               className="text-blue text-decoration-none mx-3  "
             >
+              <i class="bi bi-arrow-left-circle pe-2"></i>
               Back
             </Link>
             <Form className="container mt-4">

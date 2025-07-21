@@ -95,7 +95,6 @@ const ProductsTable = () => {
       <>
         {" "}
         <TableHeader />
-        <hr></hr>
         <div class="d-flex justify-content-center">
           <div class="spinner-border  text-primary" role="status"></div>
         </div>
@@ -115,7 +114,7 @@ const ProductsTable = () => {
             }}
             value={selectedCategory}
           >
-            <option value="">Categories</option>
+            <option value="">All Categories</option>
             {categories.map((c) => (
               <option key={c._id} value={c.categoryName}>
                 {c.categoryName}
@@ -131,33 +130,51 @@ const ProductsTable = () => {
             onChange={handleChange}
           />
         </div>
-
-        {products.length === 0 ? (
-          <h5 className="my-5">No Products to Show.</h5>
-        ) : (
-          <table className="table table-hover align-middle">
-            <thead>
-              <tr>
-                <th>S. no.</th>
-                <th>Product</th>
-                <th>Category</th>
-                <th>Price</th>
-                <th>Edit</th>
-                <th>Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products.map((p, index) => (
-                <ProductRow
-                  key={p.id}
-                  index={index}
-                  p={p}
-                  handleDel={handleDel}
-                />
-              ))}
-            </tbody>
-          </table>
-        )}
+        <div
+          style={{ maxHeight: "400px", overflowY: "auto", overflowX: "auto" }}
+        >
+          {products.length === 0 ? (
+            <h5 className="my-5">No Products to Show.</h5>
+          ) : (
+            <table
+              className="table table-hover align-middle"
+              style={{ borderCollapse: "separate", borderSpacing: "0 4px" }}
+            >
+              <thead>
+                <tr>
+                  <th className="rounded-start  sticky-th">
+                    <i class="bi bi-list"></i>
+                  </th>
+                  <th className="sticky-th">
+                    <i class="bi bi-bag-fill pe-2"></i>Product
+                  </th>
+                  <th className="sticky-th">
+                    <i class="bi bi-tag-fill pe-2"></i>Category
+                  </th>
+                  <th className="sticky-th">
+                    <i class="bi bi-currency-dollar pe-2"></i>Price
+                  </th>
+                  <th className="sticky-th">
+                    <i class="bi bi-pencil-square pe-2"></i>Edit
+                  </th>
+                  <th className="rounded-end  sticky-th">
+                    <i class="bi bi-trash-fill pe-2"></i>Delete
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {products.map((p, index) => (
+                  <ProductRow
+                    key={p.id}
+                    index={index}
+                    p={p}
+                    handleDel={handleDel}
+                  />
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
       </div>
     </>
   );

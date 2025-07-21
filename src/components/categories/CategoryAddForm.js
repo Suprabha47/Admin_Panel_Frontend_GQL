@@ -35,12 +35,12 @@ const CategoryAddForm = ({ onTrigger }) => {
       aria-labelledby="addCategoryModalLabel"
       aria-hidden="true"
     >
-      <div className="modal-dialog">
-        <div className="modal-content">
+      <div className="modal-dialog  ">
+        <div className="modal-content category-modal">
           <form onSubmit={handleSubmit}>
-            <div className="modal-header">
+            <div className="modal-header  text-white">
               <h5 className="modal-title" id="addCategoryModalLabel">
-                Add Category
+                <i class="bi bi-tag-fill pe-2"></i>Add Category
               </h5>
               <button
                 type="button"
@@ -51,20 +51,20 @@ const CategoryAddForm = ({ onTrigger }) => {
             </div>
             <div className="modal-body">
               <div className="mb-3">
-                <label className="form-label">Category Name</label>
                 <input
                   type="text"
                   className="form-control"
                   value={categoryName}
+                  placeholder="Category Name*"
                   onChange={(e) => setCategoryName(e.target.value)}
                   required
                 />
               </div>
               <div className="mb-3">
-                <label className="form-label">Category Description</label>
                 <textarea
                   className="form-control"
                   rows="3"
+                  placeholder="Category Description"
                   value={categoryDescription}
                   onChange={(e) => setCategoryDescription(e.target.value)}
                   required
@@ -74,9 +74,11 @@ const CategoryAddForm = ({ onTrigger }) => {
             <div className="modal-footer">
               <button
                 type="submit"
-                className="btn btn-primary"
+                className="btn save-btn"
+                disabled={!categoryName.trim()}
                 data-bs-dismiss="modal"
               >
+                <i class="bi bi-tags-fill pe-2"></i>
                 Save
               </button>
             </div>

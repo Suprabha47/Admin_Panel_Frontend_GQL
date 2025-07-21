@@ -45,11 +45,11 @@ const CategoryUpdateForm = ({ name, descr, id, handleTrigger }) => {
       aria-hidden="true"
     >
       <div className="modal-dialog">
-        <div className="modal-content">
+        <div className="modal-content category-modal text-white">
           <form onSubmit={handleSubmit}>
             <div className="modal-header">
               <h5 className="modal-title" id="updateCategoryModalLabel">
-                Edit Category
+                <i class="bi bi-pencil-square pe-2"></i>Edit Category
               </h5>
               <button
                 type="button"
@@ -60,7 +60,10 @@ const CategoryUpdateForm = ({ name, descr, id, handleTrigger }) => {
             </div>
             <div className="modal-body">
               <div className="mb-3">
-                <label className="form-label">Category Name</label>
+                <label className="form-label">
+                  {" "}
+                  <i class="bi bi-tag-fill pe-2"></i>Category Name
+                </label>
                 <input
                   type="text"
                   className="form-control"
@@ -69,8 +72,11 @@ const CategoryUpdateForm = ({ name, descr, id, handleTrigger }) => {
                   required
                 />
               </div>
-              <div className="mb-3">
-                <label className="form-label">Category Description</label>
+              <div className="mb-3 ">
+                <label className="form-label">
+                  {" "}
+                  <i class="bi bi-tag-fill pe-2"></i>Category Description
+                </label>
                 <textarea
                   className="form-control"
                   rows="3"
@@ -83,7 +89,8 @@ const CategoryUpdateForm = ({ name, descr, id, handleTrigger }) => {
             <div className="modal-footer">
               <button
                 type="submit"
-                className="btn btn-primary"
+                className="btn save-btn"
+                disabled={!categoryName.trim()}
                 data-bs-dismiss="modal"
               >
                 Update
