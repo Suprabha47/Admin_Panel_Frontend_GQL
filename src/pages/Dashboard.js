@@ -23,7 +23,7 @@ const Dashboard = () => {
       <div className="d-flex " style={{ minHeight: "100vh" }}>
         <Sidebar />
         <div
-          className="d-flex flex-column flex-wrap p-3 mt-0"
+          className="d-flex flex-column flex-wrap mt-0"
           style={{
             marginTop: "0px",
             marginLeft: "240px",

@@ -35,6 +35,7 @@ const CustomerTable = () => {
   if (loading) {
     return (
       <>
+        <CustomerHeader heading="table" />
         <div class="d-flex justify-content-center my-4">
           <div class="spinner-border  text-primary" role="status"></div>
         </div>
