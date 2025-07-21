@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { CUSTOMER_LISTING } from "../../apollo/customers/customerQuery";
 import { useNavigate } from "react-router-dom";
+import CustomerHeader from "./CustomerHeader";
 
 const SearchFilter = () => (
   <>
@@ -44,6 +45,7 @@ const CustomerTable = () => {
 
   return (
     <div className="container mt-4">
+      <CustomerHeader customers={customers} heading="table" />
       <SearchFilter />
       {/* Customer Table */}
       <table className="table table-hover align-middle">

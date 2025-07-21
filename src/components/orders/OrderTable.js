@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import icon from "../../utils/edit.png";
 import { useMutation, useQuery } from "@apollo/client";
 import { ORDER_LISTING } from "../../apollo/orders/orderQuery";
 import { UPDATE_ORDER_STATUS } from "../../apollo/orders/orderMutation";
+
 const OrderTable = () => {
   const [orders, setOrders] = useState([]);
-  const [orderStatus, setOrderStatus] = useState("");
   const [updateOrderStatus] = useMutation(UPDATE_ORDER_STATUS);
   const { data, loading, error } = useQuery(ORDER_LISTING, {
     fetchPolicy: "no-cache",

@@ -6,6 +6,7 @@ import CustInfoCard from "./CustInfoCard";
 import { PrimeReactProvider } from "primereact/api";
 import logo from "../../utils/back.png";
 import { DELETE_CUSTOMER } from "../../apollo/customers/customerMutation";
+import CustomerHeader from "./CustomerHeader";
 
 const CustomerProfile = () => {
   const [customer, setCustomer] = useState([]);
@@ -48,6 +49,7 @@ const CustomerProfile = () => {
 
   return (
     <PrimeReactProvider>
+      <CustomerHeader />
       <Link to="/customers" className="text-decoration-none py-1 m-3">
         <img src={logo} alt="back-logo" style={{ width: "20px" }} />
         back

@@ -1,17 +1,20 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CATEGORIES from "../../utils/CATEGORIES";
-import { toast } from "react-toastify";
 import ProductRow from "./ProductRow";
 import { useMutation, useQuery } from "@apollo/client";
 import { PRODUCT_LISTING } from "../../apollo/products/productQuery";
 import { DELETE_PRODUCT } from "../../apollo/products/productMutation";
+import { handleProductsExport } from "../../utils/dataExport";
 
-const TableHeader = () => (
+const TableHeader = ({ products }) => (
   <div className="d-flex justify-content-between align-items-center m-3 ">
     <h4>Products</h4>
     <div>
-      <button className="btn btn-outline-primary me-2" disabled>
+      <button
+        className="btn btn-outline-primary me-2"
+        onClick={() => handleProductsExport(products)}
+      >
         Export
       </button>
       <Link to="add-product">
@@ -100,7 +103,7 @@ const ProductsTable = () => {
     );
   return (
     <>
-      <TableHeader />
+      <TableHeader products={allProducts} />
       <div className="container mt-4 shadow-md bg-light p-4 m-2 w-100">
         <div className="d-flex justify-content-between align-items-center mb-3">
           <select

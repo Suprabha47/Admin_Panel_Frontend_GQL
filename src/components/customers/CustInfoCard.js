@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 import { Toast } from "primereact/toast";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
+import CustomerHeader from "./CustomerHeader";
 
 const CustInfoCard = ({ customer, address, handleDel }) => {
   const toast = useRef(null);

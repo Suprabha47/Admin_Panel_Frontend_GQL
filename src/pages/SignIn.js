@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import SignUpInBtn from "../components/SignUpInBtn";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { changeUserState } from "../redux/userSlice";
