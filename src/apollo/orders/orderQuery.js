@@ -35,3 +35,22 @@ export const GET_ORDER = gql`
     }
   }
 `;
+
+export const GET_PAGINATED_ORDERS = gql`
+  query GetPaginatedOrders($page: Int!, $limit: Int!) {
+    getPaginatedOrders(page: $page, limit: $limit) {
+      orders {
+        id
+        createdAt
+        status
+        totalAmount
+        customer {
+          customerName
+        }
+      }
+      totalCount
+      totalPage
+      currentPage
+    }
+  }
+`;

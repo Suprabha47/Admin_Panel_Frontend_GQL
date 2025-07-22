@@ -1,20 +1,29 @@
 import { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
-import { ORDER_LISTING } from "../../apollo/orders/orderQuery";
+import { GET_PAGINATED_ORDERS } from "../../apollo/orders/orderQuery";
 import { UPDATE_ORDER_STATUS } from "../../apollo/orders/orderMutation";
 
 const OrderTable = () => {
   const [orders, setOrders] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const limit = 5;
+
   const [updateOrderStatus] = useMutation(UPDATE_ORDER_STATUS);
-  const { data, loading, error } = useQuery(ORDER_LISTING, {
+  const { data, loading, error } = useQuery(GET_PAGINATED_ORDERS, {
     fetchPolicy: "no-cache",
+    variables: {
+      page,
+      limit,
+    },
   });
   const status = ["PENDING", "SHIPPED", "DELIVERED", "CANCELLED"];
 
   useEffect(() => {
-    if (!loading && data?.getAllOrders) {
-      console.log("ordersss: ", data.getAllOrders);
-      setOrders(data.getAllOrders);
+    if (!loading && data?.getPaginatedOrders) {
+      const { orders, totalPage } = data?.getPaginatedOrders;
+      setOrders(orders);
+      setTotalPages(totalPage);
     }
   }, [loading, data]);
 
@@ -115,6 +124,41 @@ const OrderTable = () => {
           ))}
         </tbody>
       </table>
+      <nav aria-label="Page navigation">
+        <ul className=" pagination justify-content-center">
+          <li className={`page-item ${page === 1 ? "disabled" : ""}`}>
+            <button
+              className="page-link"
+              onClick={() => setPage(page - 1)}
+              disabled={page === 1}
+            >
+              Previous
+            </button>
+          </li>
+          {[...Array(totalPages)].map((_, index) => {
+            const pageNum = index + 1;
+            return (
+              <li
+                key={index}
+                className={`page-item ${page === pageNum ? "active" : ""}`}
+              >
+                <button className="page-link" onClick={() => setPage(pageNum)}>
+                  {pageNum}
+                </button>
+              </li>
+            );
+          })}
+          <li className={`page-item ${page === totalPages ? "disabled" : ""}`}>
+            <button
+              className="page-link"
+              onClick={() => setPage(page + 1)}
+              disabled={page === totalPages}
+            >
+              Next
+            </button>
+          </li>
+        </ul>
+      </nav>
     </div>
   );
 };

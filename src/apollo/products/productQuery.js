@@ -26,3 +26,20 @@ export const PRODUCT_BY_ID = gql`
     }
   }
 `;
+
+export const GET_PAGINATED_PRODUCTS = gql`
+  query GetPaginatedProducts($page: Int!, $limit: Int!) {
+    getPaginatedProducts(page: $page, limit: $limit) {
+      products {
+        id
+        productName
+        category
+        price
+        image
+      }
+      totalCount
+      totalPage
+      currentPage
+    }
+  }
+`;

@@ -7,7 +7,7 @@ const CategoryCard = (props) => {
 
   return (
     <div
-      className="bg-white  border-0 shadow-sm rounded m-4 p-4"
+      className="bg-white  border-0 shadow-sm rounded m-4 p-1"
       style={{ width: "40rem" }}
     >
       <div

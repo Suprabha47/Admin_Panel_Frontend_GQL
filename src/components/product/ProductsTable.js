@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import CATEGORIES from "../../utils/CATEGORIES";
 import ProductRow from "./ProductRow";
 import { useMutation, useQuery } from "@apollo/client";
-import { PRODUCT_LISTING } from "../../apollo/products/productQuery";
+import { GET_PAGINATED_PRODUCTS } from "../../apollo/products/productQuery";
 import { DELETE_PRODUCT } from "../../apollo/products/productMutation";
 import { handleProductsExport } from "../../utils/dataExport";
 
@@ -29,19 +29,29 @@ const ProductsTable = () => {
   const [allProducts, setAllProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [deleteProduct] = useMutation(DELETE_PRODUCT);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const limit = 5;
 
-  const { data, loading, error, refetch } = useQuery(PRODUCT_LISTING, {
+  const [deleteProduct] = useMutation(DELETE_PRODUCT);
+  const { data, loading, error, refetch } = useQuery(GET_PAGINATED_PRODUCTS, {
     fetchPolicy: "cache-and-network",
+    variables: { page, limit },
   });
 
   useEffect(() => {
     fetchCategories();
-    if (!loading && data?.getAllProducts) {
-      setAllProducts(data.getAllProducts);
-      setProducts(data.getAllProducts);
+    if (!loading && data?.getPaginatedProducts) {
+      const { products, totalPage } = data?.getPaginatedProducts;
+      setAllProducts(products);
+      setProducts(products);
+      setTotalPages(totalPage);
     }
   }, [loading, data]);
+
+  useEffect(() => {
+    refetch({ page, limit });
+  }, [page]);
 
   // filtering products based on category
   useEffect(() => {
@@ -86,8 +96,8 @@ const ProductsTable = () => {
     });
     console.log("delete data: ", data.deleteProduct);
     const refetched = await refetch();
-    setAllProducts(refetched.data.getAllProducts);
-    setProducts(refetched.data.getAllProducts);
+    setAllProducts(refetched.data.getPaginatedProducts);
+    setProducts(refetched.data.getPaginatedProducts);
   };
 
   if (loading)
@@ -95,7 +105,7 @@ const ProductsTable = () => {
       <>
         {" "}
         <TableHeader />
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center mt-5">
           <div class="spinner-border  text-primary" role="status"></div>
         </div>
       </>
@@ -175,6 +185,46 @@ const ProductsTable = () => {
             </table>
           )}
         </div>
+        <nav aria-label="Page navigation">
+          <ul className="pagination justify-content-center">
+            <li className={`page-item ${page === 1 ? "disabled" : ""}`}>
+              <button
+                className="page-link"
+                onClick={() => setPage(page - 1)}
+                disabled={page === 1}
+              >
+                Previous
+              </button>
+            </li>
+            {[...Array(totalPages)].map((_, index) => {
+              const pageNum = index + 1;
+              return (
+                <li
+                  key={index}
+                  className={`page-item ${page === pageNum ? "active" : ""}`}
+                >
+                  <button
+                    className="page-link"
+                    onClick={() => setPage(pageNum)}
+                  >
+                    {pageNum}
+                  </button>
+                </li>
+              );
+            })}
+            <li
+              className={`page-item ${page === totalPages ? "disabled" : ""}`}
+            >
+              <button
+                className="page-link"
+                onClick={() => setPage(page + 1)}
+                disabled={page === totalPages}
+              >
+                Next
+              </button>
+            </li>
+          </ul>
+        </nav>
       </div>
     </>
   );
