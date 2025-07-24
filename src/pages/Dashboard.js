@@ -1,14 +1,13 @@
 import { useSelector } from "react-redux";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 const Dashboard = () => {
   const { name, status, photoUrl } = useSelector((state) => state.user);
 
-  if (!status) return <></>;
-
+  if (!status) return <Navigate to="/sign-in" replace />;
   return (
     <div className="d-flex flex-column">
       <div className="d-flex " style={{ minHeight: "100vh" }}>
