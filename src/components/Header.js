@@ -1,15 +1,15 @@
-import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { changeUserState } from "../redux/userSlice";
 import { useNavigate } from "react-router-dom";
 import { persistor } from "../redux/store";
 
-const Header = ({ userName }) => {
+const Header = ({ userName, photoUrl }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  console.log("image: ", photoUrl);
   const handleLogout = () => {
-    dispatch(changeUserState({ name: "", status: false }));
+    localStorage.removeItem("token");
+    dispatch(changeUserState({ name: "", status: false, photoUrl: "" }));
     persistor.purge();
     navigate("/sign-in");
   };
@@ -19,16 +19,26 @@ const Header = ({ userName }) => {
       <div className="container-fluid">
         <div className="d-flex justify-content-between align-items-center">
           {/* Left content (like logo or menu toggle) */}
+
           <div className="fw-bold fs-5"></div>
 
           {/* Right content */}
           <div className="d-flex align-items-center gap-3">
             <div className="me-3">
-              <i class="bi bi-person-circle pe-2"></i>
+              {!photoUrl || photoUrl === "null" || photoUrl === "undefined" ? (
+                <i className="bi bi-person-circle pe-2"></i>
+              ) : (
+                <img
+                  src={String(photoUrl)}
+                  alt="User"
+                  style={{ width: "40px", height: "40px", borderRadius: "50%" }}
+                />
+              )}
+
               {userName}
             </div>
             <div onClick={handleLogout} style={{ cursor: "pointer" }}>
-              <i class="bi bi-box-arrow-left pe-2"></i>
+              <i className="bi bi-box-arrow-left pe-2"></i>
               Logout
             </div>
           </div>

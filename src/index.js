@@ -12,7 +12,7 @@ import Products from "./components/product/Products";
 import Categories from "./components/categories/Categories";
 import Customers from "./components/customers/Customers";
 import Reports from "./components/Reports";
-import Coupons from "./components/Coupons";
+import Coupons from "./components/coupons/Coupons";
 import GlobalSettings from "./components/GlobalSettings";
 import AddProduct from "./components/product/AddProduct";
 import ProductsTable from "./components/product/ProductsTable";
@@ -22,6 +22,7 @@ import { ApolloProvider } from "@apollo/client";
 import client from "./apollo/client";
 import CustomerProfile from "./components/customers/CustomerProfile";
 import CustomerTable from "./components/customers/CustomerTable";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -32,7 +33,14 @@ root.render(
           <Routes>
             <Route path="/sign-up" element={<SignUp />} />
             <Route path="/sign-in" element={<SignIn />} />
-            <Route path="/" element={<Dashboard />}>
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            >
               <Route index element={<DashboardOutlet />} />
               <Route path="orders" element={<Orders />} />
               <Route path="products" element={<Products />}>

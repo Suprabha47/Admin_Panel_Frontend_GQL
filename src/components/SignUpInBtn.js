@@ -3,18 +3,19 @@ import { useMutation } from "@apollo/client";
 import { useDispatch } from "react-redux";
 import { GOOGLE_AUTH } from "../apollo/userAuthentication/userMutations";
 import { changeUserState } from "../redux/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const SignUpInBtn = () => {
   const dispatch = useDispatch();
   const [googleAuth] = useMutation(GOOGLE_AUTH);
+  const navigate = useNavigate();
 
   const handleGoogleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
-      const user = result.user;
+      const userData = result.user;
 
-      const { uid, displayName, email, photoUrl } = user;
-
+      const { uid, displayName, email, photoURL } = userData;
       const nameParts = displayName?.trim()?.split(" ") || ["User", "Name"];
 
       const firstName = nameParts[0];
@@ -26,12 +27,21 @@ const SignUpInBtn = () => {
           firstName,
           lastName,
           email,
-          photoUrl,
+          photoUrl: photoURL,
         },
       });
 
-      const { firstName: name, photoUrl: url } = await data.googleAuth;
-      dispatch(changeUserState({ name: name, status: true }));
+      const { user, token } = await data.googleAuth;
+      localStorage.setItem("token", token);
+      dispatch(
+        changeUserState({
+          name: user.firstName,
+          status: true,
+          photoUrl: user.photoUrl,
+        })
+      );
+
+      navigate("/", { replace: true });
     } catch (err) {
       console.log("Error: ", err);
     }

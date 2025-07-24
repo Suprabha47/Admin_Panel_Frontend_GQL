@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import SignUpInBtn from "../components/SignUpInBtn";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import { useMutation } from "@apollo/client";
 import { SIGN_UP } from "../apollo/userAuthentication/userMutations";
@@ -17,11 +16,6 @@ const SignUp = () => {
 
   const [signUp] = useMutation(SIGN_UP);
   const navigate = useNavigate();
-  const userState = useSelector((state) => state.user.status);
-
-  useEffect(() => {
-    if (userState) setTimeout(() => navigate("/"), 500);
-  }, [userState]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,8 +43,6 @@ const SignUp = () => {
       toast.error(msg);
     }
   };
-
-  if (userState) return null;
 
   return (
     <div className="bg-light min-vh-100 d-flex justify-content-center align-items-center position-relative overflow-hidden ">

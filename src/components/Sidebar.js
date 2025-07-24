@@ -45,7 +45,7 @@ const Sidebar = () => {
     {
       key: "coupons",
       label: "Coupons",
-      disabled: true,
+      route: "coupons",
       iconClass: "bi bi-star",
     },
   ];

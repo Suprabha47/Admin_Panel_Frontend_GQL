@@ -3,7 +3,10 @@ import { gql } from "@apollo/client";
 export const SIGN_IN = gql`
   mutation SignIn($email: String!, $password: String!) {
     signIn(email: $email, password: $password) {
-      firstName
+      user {
+        firstName
+      }
+      token
     }
   }
 `;
@@ -39,9 +42,12 @@ export const GOOGLE_AUTH = gql`
       email: $email
       photoUrl: $photoUrl
     ) {
-      firstName
-      email
-      photoUrl
+      user {
+        firstName
+        email
+        photoUrl
+      }
+      token
     }
   }
 `;

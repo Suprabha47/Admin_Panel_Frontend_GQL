@@ -2,12 +2,12 @@ const { createSlice } = require("@reduxjs/toolkit");
 
 const userSlice = createSlice({
   name: "user",
-  initialState: { name: "", status: false },
+  initialState: { name: "", status: false, photoUrl: "" },
   reducers: {
     changeUserState: (state, action) => {
-      const { name, status } = action.payload;
+      const { name, status, photoUrl } = action.payload;
       console.log("slice: ", action.payload);
-      return { name, status };
+      return { name, status, photoUrl };
     },
   },
 });

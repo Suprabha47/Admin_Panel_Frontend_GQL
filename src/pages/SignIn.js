@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SignUpInBtn from "../components/SignUpInBtn";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { changeUserState } from "../redux/userSlice";
 import { toast, ToastContainer } from "react-toastify";
 import { SIGN_IN } from "../apollo/userAuthentication/userMutations";
@@ -13,12 +13,6 @@ const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [signIn] = useMutation(SIGN_IN);
-  const userState = useSelector((state) => state.user.status);
-
-  useEffect(() => {
-    console.log("sign-in: ", userState);
-    if (userState) setTimeout(() => navigate("/"), 500);
-  }, [userState]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,14 +23,16 @@ const SignIn = () => {
           password,
         },
       });
-      const { firstName } = await data.signIn;
-      dispatch(changeUserState({ name: firstName, status: true }));
+      const { user, token } = await data.signIn;
+      localStorage.setItem("token", token);
+      dispatch(changeUserState({ name: user.firstName, status: true }));
+      navigate("/", { replace: true });
     } catch (err) {
       toast.error(err.message);
       console.log("error: ", err.message);
     }
   };
-  if (userState) return <></>;
+
   return (
     <div className="bg-light min-vh-100 d-flex justify-content-center align-items-center position-relative overflow-hidden">
       {/* Background circles */}
