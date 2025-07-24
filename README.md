@@ -1,70 +1,60 @@
-# Getting Started with Create React App
+🛠️ Admin Panel (Frontend) – React + Apollo Client + Firebase
+This is the frontend for the Admin Panel built with React, Apollo Client, Firebase Authentication, and styled using Bootstrap. It connects to a GraphQL backend and provides routes for managing products, categories, orders, customers, and more.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+🚀 Getting Started
+1. Clone the Repository
+   
+```
+git clone https://github.com/your-username/admin-panel-frontend.git
+cd admin-panel-frontend
+```
+2. Install Dependencies
+   
+```
+npm install
+```
+3. Create a .env File
+Create a .env file in the root of the project and add the following environment variables:
+```
+REACT_APP_BACKEND_GRAPHQL_URI=https://admin-panel-backend-gql.onrender.com
 
-## Available Scripts
+REACT_APP_FIREBASE_API_KEY=AIzaSyD0gFafCskkvtD6_5hjPpYmKMtpCaKvY2Y
+REACT_APP_FIREBASE_AUTH_DOMAIN=admin-panel-gql.firebaseapp.com
+REACT_APP_FIREBASE_PROJECT_ID=admin-panel-gql
+REACT_APP_FIREBASE_APP_ID=1:128882507263:web:8a1a0021f7b822de5d7bca
+REACT_APP_FIREBASE_STORAGE_BUCKET=admin-panel-gql.firebasestorage.app
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=128882507263
+```
 
-In the project directory, you can run:
+4. Start the App
+```
+npm start
+```
+The app will start in development mode on:
+📍 http://localhost:3000
 
-### `npm start`
+📦 Features
+Admin authentication (manual + Google sign-in)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Product management (add, update)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Categories, orders, customers listing
 
-### `npm test`
+Protected dashboard routes
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Apollo Client for GraphQL queries/mutations
 
-### `npm run build`
+Redux Toolkit with redux-persist for auth state
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+✅ Sample Admin Credentials for Testing
+Email	admin@test.com
+Password	12345678
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+📄 Backend
+You can connect the frontend to the deployed backend:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+🔗 https://admin-panel-backend-gql.onrender.com
 
-### `npm run eject`
+Make sure this backend is running and accessible before using the frontend.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Or you can clone the Backend code from Admin_Panel_Backend_GQL repo and run it in your environment.
