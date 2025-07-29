@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client";
 import { useState } from "react";
-import { DELETE_COUPON } from "../../apollo/coupons/couponMutation.ts";
+import { DELETE_COUPON } from "../../apollo/coupons/couponMutation";
 
 const CouponTable = ({ couponData, refetch }) => {
   const [tab, setTab] = useState("All");

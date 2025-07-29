@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
-import { COUPONS_LISTING } from "../../apollo/coupons/couponQuery.ts";
+import { COUPONS_LISTING } from "../../apollo/coupons/couponQuery";
 import CouponTable from "./CouponTable.js";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
