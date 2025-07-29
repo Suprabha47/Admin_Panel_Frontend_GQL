@@ -3,7 +3,7 @@ node_modules
 jest.config.js
 tests
 coverage
-
+typescript
 
 
 

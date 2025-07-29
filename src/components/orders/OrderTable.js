@@ -69,7 +69,7 @@ const OrderTable = () => {
         style={{ borderCollapse: "separate", borderSpacing: "0 4px" }}
       >
         <thead>
-          <tr>
+          <tr className="table-header">
             <th className="rounded-start">
               <i class="bi bi-hash pe-2"></i>Order ID
             </th>
@@ -104,11 +104,11 @@ const OrderTable = () => {
                     color: "#fff",
                     border: "none",
                     padding: "2px",
-                    opacity: "0.8",
+                    opacity: "0.9",
                     backgroundColor:
-                      (order.status === "PENDING" && "#ebeb38ff") ||
+                      (order.status === "PENDING" && "#d6d60aff") ||
                       (order.status === "SHIPPED" && "#0c64e9ff") ||
-                      (order.status === "DELIVERED" && "#1be32cff") ||
+                      (order.status === "DELIVERED" && "#12911cff") ||
                       (order.status === "CANCELLED" && "#e93c3cff"),
                   }}
                 >

@@ -54,3 +54,15 @@ export const GET_PAGINATED_ORDERS = gql`
     }
   }
 `;
+
+export const GET_ORDER_COUNT = gql`
+  query GetOrderCount {
+    getOrderCount
+  }
+`;
+
+export const GET_ORDER_TOTAL = gql`
+  query GetOrderTotal {
+    getOrderTotal
+  }
+`;

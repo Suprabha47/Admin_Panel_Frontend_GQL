@@ -52,7 +52,7 @@ const CustomerTable = () => {
         style={{ borderCollapse: "separate", borderSpacing: "0 4px" }}
       >
         <thead>
-          <tr className="">
+          <tr className="table-header">
             <th className="rounded-start">
               <i class="bi bi-person-fill pe-2"></i>Name
             </th>

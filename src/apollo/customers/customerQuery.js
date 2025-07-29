@@ -34,3 +34,20 @@ export const CUSTOMER_BY_ID = gql`
     }
   }
 `;
+export const GET_CUSTOMER_COUNT = gql`
+  query GetCustomerCount {
+    getCustomerCount
+  }
+`;
+
+export const GET_TOP_CUSTOMERS = gql`
+  query GetTopCustomers {
+    getTopCustomers {
+      id
+      customerName
+      orders {
+        totalAmount
+      }
+    }
+  }
+`;

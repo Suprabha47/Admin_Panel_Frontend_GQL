@@ -43,3 +43,9 @@ export const GET_PAGINATED_PRODUCTS = gql`
     }
   }
 `;
+
+export const GET_PRODUCT_COUNT = gql`
+  query GetProductCount {
+    getProductCount
+  }
+`;

@@ -31,7 +31,12 @@ const Header = ({ userName, photoUrl }) => {
                 <img
                   src={String(photoUrl)}
                   alt="User"
-                  style={{ width: "40px", height: "40px", borderRadius: "50%" }}
+                  style={{
+                    width: "30px",
+                    height: "30px",
+                    borderRadius: "50%",
+                    marginRight: "8px",
+                  }}
                 />
               )}
 

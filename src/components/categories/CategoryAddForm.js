@@ -18,7 +18,7 @@ const CategoryAddForm = ({ onTrigger }) => {
           categoryDescription,
         },
       });
-      toast.success(`Category ${data.categoryName} added.`);
+      toast.success(`Category added.`);
       onTrigger();
       setCategoryName("");
       setCategoryDescription("");

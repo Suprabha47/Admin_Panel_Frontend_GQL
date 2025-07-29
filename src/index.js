@@ -23,6 +23,8 @@ import client from "./apollo/client";
 import CustomerProfile from "./components/customers/CustomerProfile";
 import CustomerTable from "./components/customers/CustomerTable";
 import ProtectedRoute from "./components/ProtectedRoute";
+import CouponForm from "./components/coupons/CouponForm";
+import CouponOutlet from "./components/coupons/CouponOutlet";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -54,7 +56,10 @@ root.render(
                 <Route path="profile/:id" element={<CustomerProfile />} />
               </Route>
               <Route path="reports" element={<Reports />} />
-              <Route path="coupons" element={<Coupons />} />
+              <Route path="coupons" element={<CouponOutlet />}>
+                <Route index element={<Coupons />} />
+                <Route path="add-coupon" element={<CouponForm />} />
+              </Route>
               <Route path="global-settings" element={<GlobalSettings />} />
             </Route>
           </Routes>

@@ -101,7 +101,9 @@ const Sidebar = () => {
             className={`nav-item ${
               active === "global" ? "bg-secondary rounded" : ""
             }`}
-            onClick={() => setActive("global")}
+            onClick={() => {
+              /*setActive("global")*/
+            }}
           >
             <span className="nav-link text-white">
               <i className="bi bi-gear me-2"> </i>Global Settings
