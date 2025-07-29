@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { CREATE_COUPON } from "../../apollo/coupons/couponMutation.ts";
+import { CREATE_COUPON } from "../../apollo/coupons/couponMutation";
 import { toast, ToastContainer } from "react-toastify";
 
 const CouponForm = () => {
