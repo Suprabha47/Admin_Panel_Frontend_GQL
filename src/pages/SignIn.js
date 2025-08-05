@@ -3,9 +3,9 @@ import SignUpInBtn from "../components/SignUpInBtn";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { changeUserState } from "../redux/userSlice";
-import { toast, ToastContainer } from "react-toastify";
 import { SIGN_IN } from "../apollo/userAuthentication/userMutations";
 import { useMutation } from "@apollo/client";
+import { Toaster, toast } from "react-hot-toast";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -123,7 +123,7 @@ const SignIn = () => {
 
           <SignUpInBtn />
         </form>
-        <ToastContainer />
+        <Toaster position="top-right" reverseOrder={true} />
       </div>
     </div>
   );

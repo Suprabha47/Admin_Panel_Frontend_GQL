@@ -1,26 +1,32 @@
 import { useMutation } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { UPDATE_CATEGORY } from "../../apollo/categories/categoryMutations";
-import { toast } from "react-toastify";
+import { Toaster, toast } from "react-hot-toast";
+import axios from "axios";
 
-const CategoryUpdateForm = ({ name, descr, id, handleTrigger }) => {
+const CategoryUpdateForm = ({ name, descr, id, img, handleTrigger }) => {
   const [categoryName, setCategoryName] = useState("");
   const [categoryDescription, setCategoryDescription] = useState("");
+  const [isUploading, setIsUploading] = useState(false);
+  const [categoryImage, setCategoryImage] = useState(null);
   const [updateCategory] = useMutation(UPDATE_CATEGORY);
 
   useEffect(() => {
     setCategoryName(name);
     setCategoryDescription(descr);
+    setCategoryImage(img);
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const { data } = await updateCategory({
         variables: {
           id,
           categoryName,
           categoryDescription,
+          categoryImage,
         },
       });
       toast.success("Category Updated!", {
@@ -35,6 +41,25 @@ const CategoryUpdateForm = ({ name, descr, id, handleTrigger }) => {
       console.log("error: ", err);
     }
   };
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setIsUploading(true);
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "unsigned_preset");
+    formData.append("cloud_name", "dzfwdfzaz");
+
+    axios
+      .post("https://api.cloudinary.com/v1_1/dzfwdfzaz/image/upload", formData)
+      .then((res) => {
+        setCategoryImage(res.data?.secure_url);
+        console.log("image url: ", res.data?.secure_url);
+      })
+      .catch((err) => console.log("error occured: ", err.message))
+      .finally(() => setIsUploading(false));
+  };
 
   return (
     <div
@@ -44,6 +69,7 @@ const CategoryUpdateForm = ({ name, descr, id, handleTrigger }) => {
       aria-labelledby="updateCategoryModalLabel"
       aria-hidden="true"
     >
+      <Toaster />
       <div className="modal-dialog">
         <div className="modal-content category-modal text-white">
           <form onSubmit={handleSubmit}>
@@ -74,7 +100,6 @@ const CategoryUpdateForm = ({ name, descr, id, handleTrigger }) => {
               </div>
               <div className="mb-3 ">
                 <label className="form-label">
-                  {" "}
                   <i class="bi bi-tag-fill pe-2"></i>Category Description
                 </label>
                 <textarea
@@ -85,15 +110,36 @@ const CategoryUpdateForm = ({ name, descr, id, handleTrigger }) => {
                   required
                 ></textarea>
               </div>
+              <div className="mb-3">
+                <label className="form-label">
+                  <i class="bi bi-tag-fill pe-2"></i>Image
+                </label>
+                <input
+                  type="file"
+                  className="form-control"
+                  id="categoryImage"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                />
+              </div>
             </div>
             <div className="modal-footer">
               <button
                 type="submit"
                 className="btn save-btn"
-                disabled={!categoryName.trim()}
+                disabled={!categoryName.trim() || isUploading}
                 data-bs-dismiss="modal"
               >
-                Update
+                {isUploading ? (
+                  <>
+                    <span className="spinner-border spinner-border-sm me-2" />
+                    Uploading...
+                  </>
+                ) : (
+                  <>
+                    <i className="bi bi-tags-fill pe-2"></i>Update
+                  </>
+                )}
               </button>
             </div>
           </form>

@@ -4,12 +4,15 @@ export const CREATE_CATEGORY = gql`
   mutation CreateCategory(
     $categoryName: String!
     $categoryDescription: String
+    $categoryImage: String
   ) {
     createCategory(
       categoryName: $categoryName
       categoryDescription: $categoryDescription
+      categoryImage: $categoryImage
     ) {
       categoryName
+      categoryImage
     }
   }
 `;
@@ -25,11 +28,13 @@ export const UPDATE_CATEGORY = gql`
     $id: ID!
     $categoryName: String!
     $categoryDescription: String
+    $categoryImage: String
   ) {
     updateCategory(
       id: $id
       categoryName: $categoryName
       categoryDescription: $categoryDescription
+      categoryImage: $categoryImage
     ) {
       categoryName
     }

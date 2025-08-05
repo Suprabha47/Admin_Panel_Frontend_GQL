@@ -91,25 +91,41 @@ body {
   background-color: #1e2753;
 }
 .category {
+  position: relative;
+}
+
+.description-box {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+  height: auto;
+}
+
+.description-box.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* .category {
   display: flex;
   justify-content: space-between;
-}
+} */
 .btn {
   display: inline;
 }
-.description-box {
+/* .description-box {
   max-height: 0;
   overflow: hidden;
   opacity: 0;
   transition: all 0.3s ease;
   font-size: 0.875rem;
   color: #6c757d;
-}
+} */
 
-.description-box.show {
-  max-height: 100px; /* Adjust as needed */
+/* .description-box.show {
+  max-height: 100px; 
   opacity: 1;
-}
+} */
 /* Add to your global CSS or a scoped CSS module */
 .stat-card:hover {
   transform: translateY(-4px);
@@ -164,4 +180,13 @@ thead tr th,
 }
 tbody tr td {
   padding: 0.6rem 0.8rem !important;
+}
+.hover-overlay {
+  transition: opacity 0.3s ease;
+  pointer-events: none; /* prevents accidental hover flicker */
+}
+
+.position-relative:hover .hover-overlay {
+  opacity: 1 !important;
+  pointer-events: auto;
 }

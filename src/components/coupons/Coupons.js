@@ -3,7 +3,6 @@ import { useQuery } from "@apollo/client";
 import { COUPONS_LISTING } from "../../apollo/coupons/couponQuery";
 import CouponTable from "./CouponTable.js";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 
 const CouponHeader = () => {
   const navigate = useNavigate();
@@ -49,7 +48,6 @@ const Coupons = () => {
     <div className="container mt-4">
       <CouponHeader />
       <CouponTable couponData={couponData} refetch={refetch} />
-      <ToastContainer />
     </div>
   );
 };

@@ -2,12 +2,16 @@ import { useDispatch } from "react-redux";
 import { changeUserState } from "../redux/userSlice";
 import { useNavigate } from "react-router-dom";
 import { persistor } from "../redux/store";
+import ThemeToggle from "../utils/ThemeToggle";
+import { getAuth, signOut } from "firebase/auth";
 
 const Header = ({ userName, photoUrl }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   console.log("image: ", photoUrl);
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    const auth = getAuth();
+    await signOut(auth);
     localStorage.removeItem("token");
     dispatch(changeUserState({ name: "", status: false, photoUrl: "" }));
     persistor.purge();
@@ -42,6 +46,7 @@ const Header = ({ userName, photoUrl }) => {
 
               {userName}
             </div>
+            <ThemeToggle />
             <div onClick={handleLogout} style={{ cursor: "pointer" }}>
               <i className="bi bi-box-arrow-left pe-2"></i>
               Logout

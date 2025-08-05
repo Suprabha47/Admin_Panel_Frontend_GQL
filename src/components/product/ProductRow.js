@@ -6,8 +6,8 @@ const ProductRow = ({ p, index, handleDel }) => {
       <td className="rounded-start align-middle">{index + 1}</td>
       <td className=" align-middle">
         <div className="d-flex align-items-center ">
-          {/* <img
-            //src={`${process.env.REACT_APP_BACKEND_URL}/productImages/${p.image}`}
+          <img
+            src={p.image}
             alt={p.productName}
             className="me-2 rounded"
             style={{
@@ -15,7 +15,7 @@ const ProductRow = ({ p, index, handleDel }) => {
               maxHeight: 40,
               objectFit: "contain",
             }}
-          /> */}
+          />
 
           <div>
             <div>{p.productName}</div>

@@ -6,6 +6,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { GET_PAGINATED_PRODUCTS } from "../../apollo/products/productQuery";
 import { DELETE_PRODUCT } from "../../apollo/products/productMutation";
 import { handleProductsExport } from "../../utils/dataExport";
+import toast from "react-hot-toast";
 
 const TableHeader = ({ products }) => (
   <div className="d-flex justify-content-between align-items-center m-3 ">
@@ -96,8 +97,9 @@ const ProductsTable = () => {
     });
     console.log("delete data: ", data.deleteProduct);
     const refetched = await refetch();
-    setAllProducts(refetched.data.getPaginatedProducts);
-    setProducts(refetched.data.getPaginatedProducts);
+    toast.success(`Product deleted.`);
+    setAllProducts(refetched.data.getPaginatedProducts.products);
+    setProducts(refetched.data.getPaginatedProducts.products);
   };
 
   if (loading)

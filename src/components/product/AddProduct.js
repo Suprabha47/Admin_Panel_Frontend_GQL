@@ -1,12 +1,11 @@
 import { Formik, Form } from "formik";
 import InformationSection from "./InformationSection";
 import CategorySection from "./CategorySection";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import SEOSection from "./SEOSection";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { INITIALFORMVALUE, FORMIKSCHEMA } from "../../utils/INITIALFORMVALUE";
-import uploadImage from "../../utils/uploadImage";
 import { useMutation, useQuery } from "@apollo/client";
 import { PRODUCT_BY_ID } from "../../apollo/products/productQuery";
 import {
@@ -38,17 +37,7 @@ const AddProduct = () => {
   }, [id, loading, error, data]);
 
   const handleSubmit = async (values) => {
-    //let imageName;
     try {
-      // if (values.image instanceof File) {
-      //   imageName = await uploadImage(values.image);
-      //   console.log("image name insideee: ", imageName);
-      // } else if (typeof values.image === "string") {
-      //   imageName = values.image; // Keep existing image
-      // }
-
-      // console.log("Image name outside::");
-      // delete values["image"];
       delete values["__typename"];
       const payload = { ...values };
 
@@ -69,10 +58,8 @@ const AddProduct = () => {
             input: { ...payload },
           },
         });
-
-        toast.success("Product Updated!\nNavigating to Products page.", {
-          autoClose: 3000,
-        });
+        console.log("dataaaaaaaa: ", data.updateProduct);
+        toast.success("Product Updated!\nNavigating to Products page.");
         setTimeout(() => navigate("/products"), 3000);
       }
 

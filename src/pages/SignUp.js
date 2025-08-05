@@ -1,7 +1,7 @@
 import { useState } from "react";
 import SignUpInBtn from "../components/SignUpInBtn";
 import { useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import { Toaster, toast } from "react-hot-toast";
 import { useMutation } from "@apollo/client";
 import { SIGN_UP } from "../apollo/userAuthentication/userMutations";
 import { Link } from "react-router-dom";
@@ -158,8 +158,7 @@ const SignUp = () => {
         <p className="text-center mb-3">Or create an account using:</p>
         <SignUpInBtn />
       </div>
-
-      <ToastContainer />
+      <Toaster position="top-right" />
     </div>
   );
 };

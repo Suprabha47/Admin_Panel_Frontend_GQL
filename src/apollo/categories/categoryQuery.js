@@ -6,6 +6,7 @@ export const CATEGORIES_LIST = gql`
       id
       categoryName
       categoryDescription
+      categoryImage
     }
   }
 `;

@@ -21,12 +21,7 @@ export const FORMIKSCHEMA = (isEditMode = false) => {
       "Product description is required."
     ),
     price: Yup.number().required("Product price is required."),
-    // image: Yup.mixed().when("$isEditMode", {
-    //   is: true,
-    //   then: () => Yup.mixed(),
-    //   otherwise: () => Yup.mixed().required("Image is required"),
-    // }),
-    //image: isEditMode ? Yup.mixed() : Yup.mixed().required("Image is required"),
+    image: Yup.string(),
     category: Yup.string().required("Choose a category"),
     discountPrice: Yup.number().required("Add discount price"),
     seoTitle: Yup.string().required("Seo title required"),

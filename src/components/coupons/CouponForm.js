@@ -2,7 +2,7 @@ import { useMutation } from "@apollo/client";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { CREATE_COUPON } from "../../apollo/coupons/couponMutation";
-import { toast, ToastContainer } from "react-toastify";
+import { Toaster, toast } from "react-hot-toast";
 
 const CouponForm = () => {
   const [formData, setFormData] = useState({
@@ -68,6 +68,7 @@ const CouponForm = () => {
 
   return (
     <div className="container m-0 p-4">
+      <Toaster />
       <form onSubmit={handleSubmit}>
         <div className="d-flex justify-content-between align-items-center mb-4">
           <h4>Create Coupon</h4>
@@ -231,7 +232,6 @@ const CouponForm = () => {
           </div>
         </div>
       </form>
-      <ToastContainer />
     </div>
   );
 };

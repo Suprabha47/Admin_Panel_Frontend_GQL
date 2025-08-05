@@ -2,7 +2,6 @@ import { useSelector } from "react-redux";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import { Navigate, Outlet } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 
 const Dashboard = () => {
   const { name, status, photoUrl } = useSelector((state) => state.user);
@@ -22,7 +21,6 @@ const Dashboard = () => {
         >
           <Header userName={name} photoUrl={photoUrl} />
           <Outlet />
-          <ToastContainer />
         </div>
       </div>
     </div>
