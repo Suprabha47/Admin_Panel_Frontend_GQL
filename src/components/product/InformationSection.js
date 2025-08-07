@@ -31,7 +31,7 @@ const InformationSection = () => {
     <>
       <div className="card mb-3">
         <div className="card-body">
-          <h5 className="text-black my-4">Information</h5>
+          <h5 className=" my-4">Information</h5>
           <div className="mb-3">
             <label>Product Name</label>
             <Field name="productName" className="form-control" />
@@ -57,7 +57,7 @@ const InformationSection = () => {
           <hr className="my-5"></hr>
 
           <div>
-            <h5 className="text-black my-4">Images</h5>
+            <h5 className="my-4">Images</h5>
             <div className="mb-3">
               <input
                 type="file"
@@ -81,7 +81,7 @@ const InformationSection = () => {
           </div>
           <hr className="my-5"></hr>
           <div>
-            <h5 className="text-black my-4">Price</h5>
+            <h5 className=" my-4">Price</h5>
             <div className="d-flex justify-content-between ">
               <div className="mb-3">
                 <label>Product Price</label>

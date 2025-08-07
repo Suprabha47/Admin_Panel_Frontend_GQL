@@ -2,7 +2,7 @@ import StatsSection from "./dashboard/StatsSection";
 import TopCustomers from "./dashboard/TopCutomers";
 
 const Header = () => (
-  <div className="d-flex justify-content-between align-items-center mb-4">
+  <div className="  d-flex justify-content-between align-items-center mb-4">
     <h2 className="fw-bold mb-0">Dashboard</h2>
     <button className="btn btn-outline-primary btn-sm" disabled>
       <i className="bi bi-gear"></i> Manage
@@ -35,8 +35,8 @@ const DashboardOutlet = () => {
 
   return (
     <div
-      className="container-fluid p-4"
-      style={{ backgroundColor: "#f8f9fa", minHeight: "100vh" }}
+      className="container-fluid content-container p-4"
+      style={{ minHeight: "100vh" }}
     >
       <Header />
       <StatsSection />
@@ -45,7 +45,7 @@ const DashboardOutlet = () => {
         {/* Orders Over Time */}
         <div className="col-lg-8">
           <div className="card shadow-sm border-0 h-100">
-            <div className="card-header bg-white border-bottom d-flex justify-content-between">
+            <div className="card-header border-bottom d-flex justify-content-between">
               <h5 className="mb-0 fw-semibold">
                 <i className="bi bi-box-fill"></i> Orders Over Time
               </h5>
@@ -66,7 +66,7 @@ const DashboardOutlet = () => {
               </div>
               {/* Simulated Chart */}
               <div
-                className="position-relative bg-light rounded"
+                className="position-relative  rounded"
                 style={{ height: 200 }}
               >
                 <svg width="100%" height="100%">
@@ -107,7 +107,7 @@ const DashboardOutlet = () => {
         {/* Last 7 Days Sales */}
         <div className="col-lg-4">
           <div className="card shadow-sm border-0 h-100">
-            <div className="card-header bg-white border-bottom">
+            <div className="card-header border-bottom">
               <h5 className="mb-0 fw-semibold">🛒 Last 7 Days Sales</h5>
             </div>
             <div className="card-body">

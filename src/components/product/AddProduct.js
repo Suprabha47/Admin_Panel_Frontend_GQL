@@ -99,10 +99,7 @@ const AddProduct = () => {
                 Cancel
               </button>
             </div>
-            <Link
-              to="/products"
-              className="text-blue text-decoration-none mx-3  "
-            >
+            <Link to="/products" className=" text-decoration-none mx-3  ">
               <i class="bi bi-arrow-left-circle pe-2"></i>
               Back
             </Link>

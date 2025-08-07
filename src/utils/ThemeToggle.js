@@ -4,8 +4,10 @@ const ThemeToggle = () => {
   const [theme, setTheme] = useState("light");
   useEffect(() => {
     document.documentElement.setAttribute("data-bs-theme", theme);
+    document.body.setAttribute("data-theme", theme); // for custom css
     localStorage.setItem("theme", theme);
   }, [theme]);
+
   useEffect(() => {
     const saved = localStorage.getItem("theme");
     if (saved) setTheme(saved);
@@ -13,10 +15,14 @@ const ThemeToggle = () => {
 
   return (
     <button
-      className=" rounded-circle p-sm-0"
+      className=" border-0 bg-transparent"
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
     >
-      {theme === "light" ? "🌙" : "☀️"}
+      {theme === "light" ? (
+        <i class="bi bi-moon-stars text-white"></i>
+      ) : (
+        <i class="bi bi-brightness-high text-white"></i>
+      )}
     </button>
   );
 };

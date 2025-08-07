@@ -18,8 +18,8 @@ const TableHeader = ({ products }) => (
       >
         Export
       </button>
-      <Link to="add-product">
-        <button className="btn btn-primary">+ Add Product</button>
+      <Link to="add-product" className="text-decoration-none">
+        <button className="btn btn-primary ">+ Add Product</button>
       </Link>
     </div>
   </div>
@@ -115,7 +115,7 @@ const ProductsTable = () => {
   return (
     <>
       <TableHeader products={allProducts} />
-      <div className="container mt-4 shadow-md bg-light p-4 m-2 w-100">
+      <div className="container mt-4 shadow-md p-4 m-2 w-100">
         <div className="d-flex justify-content-between align-items-center mb-3">
           <select
             className="form-select"

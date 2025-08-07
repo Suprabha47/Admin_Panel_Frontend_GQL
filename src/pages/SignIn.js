@@ -34,7 +34,7 @@ const SignIn = () => {
   };
 
   return (
-    <div className="bg-light min-vh-100 d-flex justify-content-center align-items-center position-relative overflow-hidden">
+    <div className="content-container min-vh-100 d-flex justify-content-center align-items-center position-relative overflow-hidden">
       {/* Background circles */}
       <div
         className="position-absolute rounded-circle bg-info bg-gradient opacity-75"
@@ -63,10 +63,10 @@ const SignIn = () => {
         style={{ width: "15px", height: "15px", top: "20%", left: "15%" }}
       />
 
-      <div className="d-flex align-items-center justify-content-center min-vh-100 bg-light">
+      <div className="d-flex align-items-center justify-content-center min-vh-100 ">
         <form
           onSubmit={handleSubmit}
-          className="bg-white rounded shadow p-5"
+          className=" rounded shadow p-5"
           style={{ width: "100%", maxWidth: "400px", zIndex: 1 }}
         >
           <div className="text-center mb-4">

@@ -56,7 +56,7 @@ const StatsSection = () => {
       {statsData.map((stat, index) => (
         <div key={index} className="col-md-2 col-sm-6 mb-3">
           <div
-            className="card h-100 border-0 shadow-sm stat-card"
+            className="card card-stat h-100 border-0 shadow-sm stat-card"
             style={{
               transition: "transform 0.2s, box-shadow 0.2s",
               backgroundColor: "#00175b30",
@@ -66,13 +66,10 @@ const StatsSection = () => {
               <div className="d-flex justify-content-between align-items-start mb-2 ">
                 <div>
                   <div>
-                    <i
-                      class={`bi ${stat.icon} fs-4`}
-                      style={{ color: "#ffffffff" }}
-                    ></i>
+                    <i class={`bi ${stat.icon} fs-4`} style={{}}></i>
                   </div>
                   <h5 className="card-title mb-2 ">{stat.value}</h5>
-                  <p className="card-subtitle mb-1 text-white  text-muted  small">
+                  <p className="card-subtitle mb-1  text-muted  small">
                     {stat.title}
                   </p>
                 </div>

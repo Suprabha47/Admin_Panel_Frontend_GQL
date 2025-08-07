@@ -54,8 +54,8 @@ const CouponTable = ({ couponData, refetch }) => {
         ].map((t) => (
           <li className="nav-item" key={t}>
             <button
-              className={`nav-link text-black border${
-                tab === t ? "active bg-secondary text-white" : "bg-white"
+              className={`nav-link  ${
+                tab === t ? "active bg-secondary border" : ""
               }`}
               onClick={() => {
                 setTab(t);

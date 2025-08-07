@@ -3,9 +3,11 @@ import { Outlet } from "react-router-dom";
 
 const Products = () => {
   return (
-    <div className="w-100 d-flex flex-column">
+    <div className=" w-100 d-flex flex-column">
       <Toaster />
-      <Outlet />
+      <div className="content-container">
+        <Outlet />
+      </div>
     </div>
   );
 };

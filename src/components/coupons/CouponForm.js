@@ -67,7 +67,7 @@ const CouponForm = () => {
   };
 
   return (
-    <div className="container m-0 p-4">
+    <div className="content-container m-0 p-4">
       <Toaster />
       <form onSubmit={handleSubmit}>
         <div className="d-flex justify-content-between align-items-center mb-4">
@@ -88,7 +88,7 @@ const CouponForm = () => {
           </Link>
         </div>
 
-        <div className="bg-white p-3">
+        <div className=" p-3">
           <p className="fw-bold m-0">Coupon Information</p>
           <p className="small">
             Code will be used by customers during checkout
@@ -119,7 +119,7 @@ const CouponForm = () => {
               />
             </div>
           </div>
-
+          <hr></hr>
           <p className="fw-bold m-0">Coupon Type</p>
           <p className="small">Type of coupon you want to create</p>
           <div className="d-flex flex-wrap gap-2 mb-4">
@@ -136,8 +136,8 @@ const CouponForm = () => {
               <button
                 key={type.label}
                 type="button"
-                className={`btn btn-outline-dark btn-lg ${
-                  formData.couponType === type.value ? "active" : ""
+                className={`btn border-white btn-lg ${
+                  formData.couponType === type.value ? "active btn-primary" : ""
                 }`}
                 onClick={() => handleCouponType(type.value)}
               >
@@ -148,7 +148,7 @@ const CouponForm = () => {
               </button>
             ))}
           </div>
-
+          <hr></hr>
           <div className="row text-muted">
             <div className="col-md-6 mb-3">
               <label className="form-label">Discount Value</label>

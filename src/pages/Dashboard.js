@@ -8,7 +8,7 @@ const Dashboard = () => {
 
   if (!status) return <Navigate to="/sign-in" replace />;
   return (
-    <div className="d-flex flex-column">
+    <div className=" content-container d-flex flex-column">
       <div className="d-flex " style={{ minHeight: "100vh" }}>
         <Sidebar />
         <div
@@ -20,7 +20,10 @@ const Dashboard = () => {
           }}
         >
           <Header userName={name} photoUrl={photoUrl} />
-          <Outlet />
+
+          <div className="content-container">
+            <Outlet />
+          </div>
         </div>
       </div>
     </div>

@@ -6,7 +6,7 @@ const CategoryCard = (props) => {
   const { category, id, onDelete, descr, onTrigger, img } = props;
 
   return (
-    <div className="bg-white  border-0 d-inline-block shadow-sm rounded m-4 p-1 w-25">
+    <div className="  border-0 d-inline-block shadow-sm rounded m-4 p-1 w-25">
       <div className="card ">
         <div className="position-relative">
           <img
@@ -36,7 +36,7 @@ const CategoryCard = (props) => {
           </div>
         </div>
 
-        <div class="card-body" style={{ height: "8rem" }}>
+        <div class="card-body card-cat" style={{ height: "8rem" }}>
           <div
             className="p-3 category"
             onMouseEnter={() => setShowDescription(true)}

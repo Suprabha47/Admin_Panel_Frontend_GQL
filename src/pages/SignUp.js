@@ -45,7 +45,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="bg-light min-vh-100 d-flex justify-content-center align-items-center position-relative overflow-hidden ">
+    <div className="content-container min-vh-100 d-flex justify-content-center align-items-center position-relative overflow-hidden ">
       {/* Background circles */}
       <div
         className="position-absolute rounded-circle bg-info bg-gradient"
@@ -68,7 +68,7 @@ const SignUp = () => {
 
       {/* Form Card */}
       <div
-        className="bg-white rounded p-5 shadow my-4 px-4 mx-2"
+        className=" rounded p-5 shadow my-4 px-4 mx-2"
         style={{ width: "100%", maxWidth: "450px", zIndex: 1 }}
       >
         <div className="text-center mb-4">
