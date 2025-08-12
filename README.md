@@ -5,7 +5,7 @@ This is the frontend for the Admin Panel built with React, Apollo Client, Fireba
 1. Clone the Repository
    
 ```
-git clone https://github.com/your-username/admin-panel-frontend.git
+git clone https://github.com/Suprabha47/Admin_Panel_Frontend_GQL.git
 cd admin-panel-frontend
 ```
 2. Install Dependencies
