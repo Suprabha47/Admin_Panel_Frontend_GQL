@@ -247,3 +247,23 @@ tbody tr td {
 [data-theme="dark"] .card-cat {
   background-color: #0f21543b !important;
 }
+.hover-overlay button {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.card-img-top {
+  transition: filter 0.3s ease;
+}
+
+.card:hover .card-img-top {
+  filter: blur(4px);
+}
+
+.hover-overlay {
+  transition: opacity 0.3s ease;
+}
+
+.card:hover .hover-overlay {
+  opacity: 1 !important;
+}

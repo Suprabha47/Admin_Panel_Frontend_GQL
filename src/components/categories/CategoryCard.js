@@ -21,15 +21,17 @@ const CategoryCard = (props) => {
           />
           <div className="position-absolute top-50 start-50 translate-middle d-flex gap-2 opacity-0 hover-overlay">
             <button
-              className="btn btn-outline-primary btn-sm"
+              className="btn  btn-sm"
               data-bs-toggle="modal"
               data-bs-target={`#updateCategoryModal${id}`}
+              style={{ color: "#009dffff", border: "#009dffff solid 0.4px" }}
             >
               <i className="bi bi-pencil"></i> Edit
             </button>
             <button
-              className="btn btn-outline-danger btn-sm"
+              className="btn  btn-sm"
               onClick={() => onDelete(id, category)}
+              style={{ color: "#ff0000ff", border: "#ff0000ff solid 0.4px" }}
             >
               <i className="bi bi-trash"></i> Delete
             </button>
